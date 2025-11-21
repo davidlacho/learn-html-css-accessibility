@@ -4,763 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn HTML, CSS & Accessible Web Design</title>
+    <link rel="stylesheet" href="styles.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .app-container {
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .lesson-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: white;
-            border-right: 2px solid #e0e0e0;
-            overflow-y: auto;
-        }
-
-        .preview-panel {
-            flex: 1;
-            background: white;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            padding: 20px;
-            background: #2c3e50;
-            color: white;
-            border-bottom: 3px solid #3498db;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .lesson-content {
-            padding: 30px;
-            max-width: 800px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .welcome-screen {
-            text-align: center;
-            padding: 60px 30px;
-        }
-
-        .welcome-screen h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .welcome-screen p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .name-input {
-            margin: 30px 0;
-        }
-
-        .name-input input {
-            padding: 12px 20px;
-            font-size: 16px;
-            border: 2px solid #3498db;
-            border-radius: 5px;
-            width: 300px;
-            max-width: 100%;
-        }
-
-        .name-input button {
-            margin-left: 10px;
-            padding: 12px 30px;
-            font-size: 16px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .name-input button:hover {
-            background: #2980b9;
-        }
-
-        .name-input button:focus {
-            outline: 3px solid #3498db;
-            outline-offset: 2px;
-            background: #2980b9;
-        }
-
-        .name-input input:focus {
-            outline: 3px solid #3498db;
-            outline-offset: 2px;
-        }
-
-        .lesson-section {
-            margin-bottom: 40px;
-        }
-
-        .lesson-title {
-            font-size: 28px;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #3498db;
-        }
-
-        .lesson-description {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 25px;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 5px;
-            border-left: 4px solid #3498db;
-        }
-
-        .lesson-description strong {
-            color: #2c3e50;
-        }
-
-        .hint-section {
-            margin-top: 20px;
-            margin-bottom: 25px;
-        }
-
-        .hint-button {
-            width: 100%;
-            padding: 15px 20px;
-            background: #e8f4f8;
-            border: 2px solid #3498db;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: left;
-            font-size: 16px;
-            font-weight: 600;
-            color: #2c3e50;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .hint-button:hover {
-            background: #d4e8f0;
-        }
-
-        .hint-button:focus {
-            outline: 3px solid #3498db;
-            outline-offset: 2px;
-        }
-
-        .hint-button[aria-expanded="true"] {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            border-bottom: none;
-        }
-
-        .hint-icon {
-            font-size: 20px;
-            transition: transform 0.3s;
-        }
-
-        .hint-button[aria-expanded="true"] .hint-icon {
-            transform: rotate(180deg);
-        }
-
-        .hint-content {
-            background: #e8f4f8;
-            border: 2px solid #3498db;
-            border-top: none;
-            border-radius: 0 0 5px 5px;
-            padding: 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s;
-        }
-
-        .hint-content[aria-hidden="false"] {
-            max-height: 500px;
-            padding: 20px;
-        }
-
-        .hint-content h3 {
-            color: #2c3e50;
-            margin-bottom: 12px;
-            font-size: 18px;
-        }
-
-        .hint-content ol {
-            margin-left: 20px;
-            line-height: 1.8;
-        }
-
-        .hint-content li {
-            margin-bottom: 8px;
-            color: #555;
-        }
-
-        .progress-section {
-            padding: 20px;
-            background: #f8f9fa;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .progress-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-
-        .progress-circles {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .progress-circle-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-        }
-
-        .progress-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 4px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 14px;
-            color: #666;
-            background: white;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .progress-circle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .progress-circle:focus {
-            outline: 3px solid #3498db;
-            outline-offset: 3px;
-        }
-
-        .progress-circle:active {
-            transform: scale(1.05);
-        }
-
-        .progress-circle.completed {
-            border-color: #27ae60;
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .progress-circle.in-progress {
-            border-color: #3498db;
-            background: #e8f4f8;
-            color: #2c3e50;
-        }
-
-        .progress-star {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            font-size: 24px;
-            animation: starPop 0.5s ease-out;
-        }
-
-        @keyframes starPop {
-            0% {
-                transform: scale(0) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.3) rotate(180deg);
-            }
-            100% {
-                transform: scale(1) rotate(360deg);
-            }
-        }
-
-        .progress-label {
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            max-width: 80px;
-        }
-
-        .certificate {
-            text-align: center;
-            padding: 60px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .certificate-content {
-            background: white;
-            color: #333;
-            padding: 60px 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 800px;
-            width: 100%;
-        }
-
-        .certificate h1 {
-            font-size: 48px;
-            color: #667eea;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .certificate h2 {
-            font-size: 32px;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-
-        .certificate .student-name {
-            font-size: 36px;
-            color: #667eea;
-            font-weight: 600;
-            margin: 20px 0;
-            padding: 20px;
-            border: 3px solid #667eea;
-            border-radius: 10px;
-        }
-
-        .certificate .date {
-            font-size: 18px;
-            color: #666;
-            margin-top: 30px;
-        }
-
-        .certificate .description {
-            font-size: 18px;
-            color: #555;
-            line-height: 1.8;
-            margin-top: 30px;
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        .tooltip-wrapper {
-            position: relative;
-            display: inline;
-            cursor: help;
-            border-bottom: 1px dotted #3498db;
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .tooltip-wrapper:hover,
-        .tooltip-wrapper:focus {
-            outline: 2px solid #3498db;
-            outline-offset: 2px;
-        }
-
-        .tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 8px;
-            padding: 10px 15px;
-            background: #2c3e50;
-            color: white;
-            border-radius: 6px;
-            font-size: 14px;
-            line-height: 1.5;
-            white-space: normal;
-            width: 250px;
-            max-width: 90vw;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 6px solid transparent;
-            border-top-color: #2c3e50;
-        }
-
-        .tooltip-wrapper:hover .tooltip,
-        .tooltip-wrapper:focus .tooltip {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .tooltip-wrapper:focus {
-            outline: 2px solid #3498db;
-            outline-offset: 2px;
-        }
-
-        .code-input {
-            margin: 20px 0;
-        }
-
-        .code-input label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .code-editor-container {
-            background: #1e1e1e;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            overflow: hidden;
-            border: 1px solid #333;
-        }
-
-        .code-editor-header {
-            background: #2d2d2d;
-            padding: 8px 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid #3d3d3d;
-        }
-
-        .code-editor-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .code-editor-dot.red {
-            background: #ff5f56;
-        }
-
-        .code-editor-dot.yellow {
-            background: #ffbd2e;
-        }
-
-        .code-editor-dot.green {
-            background: #27c93f;
-        }
-
-        .code-editor-title {
-            color: #888;
-            font-size: 12px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin-left: 10px;
-        }
-
-        .code-input textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 20px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-            background: #1e1e1e;
-            color: #d4d4d4;
-            border: none;
-            border-radius: 0;
-            resize: vertical;
-            tab-size: 4;
-            -moz-tab-size: 4;
-            white-space: pre;
-            overflow-wrap: normal;
-            overflow-x: auto;
-        }
-
-        .code-input textarea::placeholder {
-            color: #6a6a6a;
-            font-style: italic;
-        }
-
-        .code-input textarea:focus {
-            outline: none;
-            background: #1e1e1e;
-            color: #d4d4d4;
-        }
-
-        .code-input textarea::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-        }
-
-        .code-input textarea::-webkit-scrollbar-track {
-            background: #1e1e1e;
-        }
-
-        .code-input textarea::-webkit-scrollbar-thumb {
-            background: #424242;
-            border-radius: 6px;
-        }
-
-        .code-input textarea::-webkit-scrollbar-thumb:hover {
-            background: #4e4e4e;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .btn:focus {
-            outline: 3px solid #3498db;
-            outline-offset: 2px;
-        }
-
-        .btn-primary {
-            background: #3498db;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #2980b9;
-        }
-
-        .btn-primary:focus {
-            background: #2980b9;
-        }
-
-        .btn-success {
-            background: #27ae60;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #229954;
-        }
-
-        .btn-success:focus {
-            background: #229954;
-        }
-
-        .btn-secondary {
-            background: #95a5a6;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #7f8c8d;
-        }
-
-        .btn-secondary:focus {
-            background: #7f8c8d;
-        }
-
-        .feedback {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: 500;
-        }
-
-        .feedback.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .feedback.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .progress-indicator {
-            padding: 20px;
-            background: #ecf0f1;
-            border-bottom: 2px solid #bdc3c7;
-        }
-
-        .progress-indicator span {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .preview-header {
-            padding: 20px;
-            background: #34495e;
-            color: white;
-            font-weight: 600;
-        }
-
-        .preview-frame {
-            flex: 1;
-            border: none;
-            width: 100%;
-        }
-
-        .lesson-navigation {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #e0e0e0;
-        }
-
-        .url-share {
-            margin-top: 20px;
-            padding: 15px;
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 5px;
-        }
-
-        .url-share p {
-            font-size: 14px;
-            margin-bottom: 10px;
-            color: #856404;
-        }
-
-        .url-share input {
-            width: 100%;
-            padding: 8px;
-            font-size: 12px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            font-family: monospace;
-        }
-
-        .completion-message {
-            text-align: center;
-            padding: 40px;
-            background: #d4edda;
-            border: 2px solid #27ae60;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .completion-message h2 {
-            color: #155724;
-            margin-bottom: 15px;
-        }
-
-        .completion-message p {
-            color: #155724;
-            font-size: 18px;
-        }
-
-        .w3schools-links {
-            margin-top: 30px;
-            padding: 20px;
-            background: #e8f4f8;
-            border: 2px solid #3498db;
-            border-radius: 5px;
-        }
-
-        .w3schools-links h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .w3schools-links ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .w3schools-links li {
-            margin: 10px 0;
-        }
-
-        .w3schools-links a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .w3schools-links a:hover {
-            background: #d4e8f0;
-            text-decoration: underline;
-        }
-
-        .w3schools-links a:focus {
-            outline: 3px solid #3498db;
-            outline-offset: 2px;
-        }
-
-        .w3schools-links a::after {
-            content: '↗';
-            font-size: 14px;
-            opacity: 0.7;
-        }
-    </style>
 </head>
 <body>
     <div id="root"></div>
@@ -768,738 +15,335 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
+        // Translation system - load all content from external JSON file
+        let translations = {};
+        let translationsLoaded = false;
+
+        // Load translations.json
+        fetch('translations.json')
+            .then(response => response.json())
+            .then(data => {
+                translations = data;
+                translationsLoaded = true;
+                // Force update any components waiting for translations
+                if (window.forceUpdate) {
+                    window.forceUpdate();
+                }
+            })
+            .catch(error => {
+                console.error('Error loading translations:', error);
+                // Fallback: translations will be empty, app will use keys
+                translationsLoaded = true;
+            });
+
+        // Translation helper function
+        function t(key, params = {}) {
+            if (!translationsLoaded) return key;
+            const lang = window.currentLanguage || 'en';
+            const keys = key.split('.');
+            let value = translations[lang];
+            
+            for (const k of keys) {
+                if (value && typeof value === 'object' && k in value) {
+                    value = value[k];
+                } else {
+                    // Fallback to English if translation not found
+                    value = translations.en;
+                    for (const k2 of keys) {
+                        if (value && typeof value === 'object' && k2 in value) {
+                            value = value[k2];
+                        } else {
+                            return key;
+                        }
+                    }
+                    break;
+                }
+            }
+            
+            if (typeof value !== 'string') return key;
+            
+            // Replace parameters
+            return value.replace(/\{(\w+)\}/g, (match, param) => {
+                return params[param] !== undefined ? params[param] : match;
+            });
+        }
+
+        // Get translated glossary definition
+        function getTranslatedGlossary(term) {
+            if (!translationsLoaded) return glossary[term] || glossary[term.toLowerCase()];
+            const lang = window.currentLanguage || 'en';
+            
+            // Try to get from translated glossary
+            const translatedGlossary = translations[lang]?.glossary;
+            if (translatedGlossary && typeof translatedGlossary === 'object') {
+                if (term in translatedGlossary) {
+                    return translatedGlossary[term];
+                }
+                if (term.toLowerCase() in translatedGlossary) {
+                    return translatedGlossary[term.toLowerCase()];
+                }
+            }
+            
+            // Fallback to English glossary in translations
+            const enGlossary = translations.en?.glossary;
+            if (enGlossary && typeof enGlossary === 'object') {
+                if (term in enGlossary) {
+                    return enGlossary[term];
+                }
+                if (term.toLowerCase() in enGlossary) {
+                    return enGlossary[term.toLowerCase()];
+                }
+            }
+            
+            // Final fallback to original glossary object
+            return glossary[term] || glossary[term.toLowerCase()];
+        }
+
+        // Get translated lesson data
+        function getTranslatedLesson(lesson, langOverride = null) {
+            if (!translationsLoaded) return lesson;
+            const lang = langOverride || window.currentLanguage || 'en';
+            const lessonTranslations = translations[lang]?.lessons?.[lesson.id];
+            
+            // Map category names to translation keys
+            const categoryMap = {
+                'HTML Fundamentals': 'htmlFundamentals',
+                'HTML': 'html',
+                'CSS': 'css',
+                'Accessibility': 'accessibility'
+            };
+            const categoryKey = categoryMap[lesson.category] || lesson.category.toLowerCase().replace(/\s+/g, '');
+            const translatedCategory = t(`categories.${categoryKey}`) || lesson.category;
+            
+            if (!lessonTranslations) {
+                // Fallback to English or original lesson
+                const enTranslations = translations.en?.lessons?.[lesson.id];
+                if (enTranslations) {
+                    return {
+                        ...lesson,
+                        category: translatedCategory,
+                        title: enTranslations.title || lesson.title,
+                        description: enTranslations.description || lesson.description,
+                        whyImportant: enTranslations.whyImportant || lesson.whyImportant,
+                        whatToDo: enTranslations.whatToDo || lesson.whatToDo,
+                        w3schoolsLinks: enTranslations.w3schoolsLinks || lesson.w3schoolsLinks,
+                        expectedElements: enTranslations.expectedElements || lesson.expectedElements,
+                        codeTemplate: enTranslations.codeTemplate || lesson.codeTemplate
+                    };
+                }
+                // If no translations at all, use original with translated category
+                return {
+                    ...lesson,
+                    category: translatedCategory
+                };
+            }
+            
+            return {
+                ...lesson,
+                category: translatedCategory,
+                title: lessonTranslations.title || lesson.title,
+                description: lessonTranslations.description || lesson.description,
+                whyImportant: lessonTranslations.whyImportant || lesson.whyImportant,
+                whatToDo: lessonTranslations.whatToDo || lesson.whatToDo,
+                w3schoolsLinks: lessonTranslations.w3schoolsLinks || lesson.w3schoolsLinks,
+                expectedElements: lessonTranslations.expectedElements || lesson.expectedElements,
+                codeTemplate: lessonTranslations.codeTemplate || lesson.codeTemplate
+            };
+        }
+
         // Lesson data structure
         const lessons = [
             {
                 id: 'fundamentals-1',
                 category: 'HTML Fundamentals',
-                title: 'Understanding HTML Tags',
-                description: 'HTML uses "tags" to mark up content. Tags are written inside angle brackets like <tag>. Most tags come in pairs: an opening tag <tag> and a closing tag </tag>. The closing tag has a forward slash before the tag name. Everything between the opening and closing tags is the content.',
-                whyImportant: 'Tags are the building blocks of HTML. Understanding how tags work is essential - they tell the browser what type of content you\'re creating (heading, paragraph, link, etc.).',
-                whatToDo: [
-                    'Type an opening tag using angle brackets, like <div>',
-                    'Add some text or content',
-                    'Type the closing tag with a forward slash, like </div>',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Elements', url: 'https://www.w3schools.com/html/html_elements.asp' },
-                    { text: 'HTML Tags', url: 'https://www.w3schools.com/html/html_intro.asp' }
-                ],
-                codeTemplate: '',
                 validator: (code) => {
-                    // Check for at least one opening tag with angle brackets
                     const hasOpeningTag = /<[a-z]+[^>]*>/i.test(code);
-                    // Check for at least one closing tag
                     const hasClosingTag = /<\/[a-z]+>/i.test(code);
                     return hasOpeningTag && hasClosingTag;
-                },
-                expectedElements: ['Opening tag <tag>', 'Closing tag </tag>']
+                }
             },
             {
                 id: 'fundamentals-2',
                 category: 'HTML Fundamentals',
-                title: 'Your First HTML Tag',
-                description: 'Let\'s write your very first HTML tag! We\'ll start with a paragraph tag. Type <p> to open it, add some text, then close it with </p>. The <p> tag creates a paragraph of text. Remember: opening tag, content, closing tag!',
-                whyImportant: 'Writing your first tag helps you understand the basic pattern all HTML follows. Once you master this, you can learn any HTML tag.',
-                whatToDo: [
-                    'Type <p> (opening paragraph tag)',
-                    'Add some text, like "Hello World"',
-                    'Type </p> (closing paragraph tag)',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Paragraphs', url: 'https://www.w3schools.com/html/html_paragraphs.asp' }
-                ],
-                codeTemplate: '',
                 validator: (code) => {
                     const hasP = /<p[^>]*>.*<\/p>/i.test(code);
                     const hasContent = /<p[^>]*>[^<]+<\/p>/i.test(code);
                     return hasP && hasContent;
-                },
-                expectedElements: ['<p> opening tag', 'Some text content', '</p> closing tag']
+                }
             },
             {
                 id: 'fundamentals-3',
                 category: 'HTML Fundamentals',
-                title: 'Understanding HTML Attributes',
-                description: 'Attributes provide extra information about tags. They go inside the opening tag like this: <tag attribute="value">. For example, a link tag uses href="url" to specify where the link goes. Attributes always have a name, an equals sign, and a value in quotes. Two very important attributes are id and class: id gives an element a unique identifier (only one element per page can have a specific id), while class groups multiple elements together (many elements can share the same class).',
-                whyImportant: 'Attributes make tags more powerful. They let you customize how tags behave - like setting colors, sizes, links, and more. Almost every HTML tag can use attributes. The id and class attributes are especially important because they let you target specific elements with CSS and JavaScript. When you apply an id or class to a parent element, it doesn\'t automatically apply to its children - children need their own attributes unless you use CSS selectors to target them based on their parent.',
-                whatToDo: [
-                    'Look at the existing paragraph tag in the code',
-                    'Add a new tag with an id attribute, like <div id="myDiv">content</div>',
-                    'Add another tag with a class attribute, like <div class="container">content</div>',
-                    'Remember: id is unique (one per page), class can be reused (many elements can share it)',
-                    'Make sure the attributes have quotes around the values',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Attributes', url: 'https://www.w3schools.com/html/html_attributes.asp' }
-                ],
-                codeTemplate: '<p>This is a paragraph</p>\n<!-- Add tags with id and class attributes here -->',
                 validator: (code) => {
-                    // Check for a tag with id attribute
                     const hasId = /<[a-z]+[^>]*\s+id\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
-                    // Check for a tag with class attribute
                     const hasClass = /<[a-z]+[^>]*\s+class\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
                     return hasId && hasClass;
-                },
-                expectedElements: ['A tag with id attribute', 'A tag with class attribute']
+                }
             },
             {
                 id: 'fundamentals-4',
                 category: 'HTML Fundamentals',
-                title: 'Common HTML Tags: div, span, and More',
-                description: 'The <div> tag is a container that groups content together. It doesn\'t have any visual meaning by itself, but it helps organize your page. The <span> tag is similar but for inline content. You\'ll also use <strong> for bold text and <em> for italic text. These are some of the most common tags you\'ll use! HTML elements form a hierarchy - parent elements contain child elements. When you add an id or class to a parent element (like a <div>), it doesn\'t automatically apply to its children. Each element needs its own attributes. However, you can use CSS to style children based on their parent - for example, ".parent .child" targets elements with class "child" inside elements with class "parent".',
-                whyImportant: 'Understanding common tags like <div> and <span> helps you structure your content. They\'re building blocks for organizing and styling your webpage. Semantic tags like <strong> and <em> also help with accessibility. Understanding HTML hierarchy is crucial - parent-child relationships determine how CSS selectors work and how you organize your code. When choosing ids and classes, use descriptive names that explain the element\'s purpose (like "header" or "main-content" instead of "div1" or "box").',
-                whatToDo: [
-                    'Add a <div> tag with a class attribute and some content inside',
-                    'Add a child element inside that div (like a <p> tag)',
-                    'Notice: the child doesn\'t automatically get the parent\'s class - it needs its own attributes',
-                    'Add a <span> tag with some text',
-                    'Add <strong> for bold text and <em> for italic text',
-                    'Close all tags properly',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML div Tag', url: 'https://www.w3schools.com/tags/tag_div.asp' },
-                    { text: 'HTML span Tag', url: 'https://www.w3schools.com/tags/tag_span.asp' },
-                    { text: 'HTML strong Tag', url: 'https://www.w3schools.com/tags/tag_strong.asp' },
-                    { text: 'HTML em Tag', url: 'https://www.w3schools.com/tags/tag_em.asp' }
-                ],
-                codeTemplate: '<p>This is a paragraph</p>\n<!-- Add div with class, span, strong, and em tags here -->\n<!-- Remember: parent elements contain children, but children need their own attributes -->',
                 validator: (code) => {
                     const hasDiv = /<div[^>]*>.*<\/div>/i.test(code);
                     const hasDivWithClass = /<div[^>]*class\s*=\s*["'][^"']+["'][^>]*>.*<\/div>/i.test(code);
                     const hasSpan = /<span[^>]*>.*<\/span>/i.test(code);
                     const hasStrong = /<strong[^>]*>.*<\/strong>/i.test(code);
                     const hasEm = /<em[^>]*>.*<\/em>/i.test(code);
-                    return hasDiv && hasDivWithClass && hasSpan && (hasStrong || hasEm);
-                },
-                expectedElements: ['<div> with class attribute', '<span>', '<strong> or <em>']
+                    return hasDivWithClass && hasSpan && (hasStrong || hasEm);
+                }
             },
             {
                 id: 'html-1',
                 category: 'HTML',
-                title: 'HTML Document Structure',
-                description: 'Every HTML webpage needs a basic structure. The <html> tag wraps everything. Inside it, <head> contains information about the page (like the title), and <body> contains the visible content. The <title> tag goes in the head and sets the browser tab title.',
-                whyImportant: 'This structure tells browsers "this is an HTML document" and organizes your page into visible content (body) and metadata (head). Without this structure, browsers might not display your page correctly.',
-                whatToDo: [
-                    'Type <html> to start your document',
-                    'Add <head> and </head> tags inside html',
-                    'Add <title>Your Title</title> inside the head',
-                    'Add <body> and </body> tags inside html (after head)',
-                    'Close with </html>',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Basic Structure', url: 'https://www.w3schools.com/html/html_basic.asp' },
-                    { text: 'HTML Head Element', url: 'https://www.w3schools.com/html/html_head.asp' }
-                ],
-                codeTemplate: '',
                 validator: (code) => {
                     const hasHtml = /<html/i.test(code);
                     const hasHead = /<head/i.test(code);
                     const hasTitle = /<title/i.test(code);
                     const hasBody = /<body/i.test(code);
                     return hasHtml && hasHead && hasTitle && hasBody;
-                },
-                expectedElements: ['<html>', '<head>', '<title>', '<body>']
+                }
             },
             {
                 id: 'html-2',
                 category: 'HTML',
-                title: 'Adding Content with Headings and Paragraphs',
-                description: 'Now let\'s add actual content to your webpage! Headings (<h1> to <h6>) help organize your content, and paragraphs (<p>) contain your text. We\'ll add a main heading and a paragraph inside the body.',
-                whyImportant: 'Headings create a hierarchy that helps both users and search engines understand your content. Paragraphs make your text readable and well-organized.',
-                whatToDo: [
-                    'Inside the <body> tag, add an <h1> heading with your text',
-                    'Close the heading with </h1>',
-                    'Add a <p> paragraph tag with some text',
-                    'Close the paragraph with </p>',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Headings', url: 'https://www.w3schools.com/html/html_headings.asp' },
-                    { text: 'HTML Paragraphs', url: 'https://www.w3schools.com/html/html_paragraphs.asp' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-</head>
-<body>
-    <!-- Add your heading and paragraph here -->
-</body>
-</html>`,
                 validator: (code) => {
                     const hasH1 = /<h1[^>]*>.*<\/h1>/i.test(code);
                     const hasP = /<p[^>]*>.*<\/p>/i.test(code);
                     return hasH1 && hasP;
-                },
-                expectedElements: ['<h1>', '<p>']
+                }
             },
             {
                 id: 'html-3',
                 category: 'HTML',
-                title: 'Creating Lists',
-                description: 'Lists are great for organizing information. HTML has two types: ordered lists (<ol>) with numbers, and unordered lists (<ul>) with bullets. Each item uses <li> (list item).',
-                whyImportant: 'Lists make information scannable and easy to digest. They\'re essential for navigation menus, feature lists, and step-by-step instructions.',
-                whatToDo: [
-                    'Add either <ul> (unordered/bullet list) or <ol> (ordered/numbered list)',
-                    'Inside the list tag, add <li> tags for each list item',
-                    'Add text inside each <li> tag',
-                    'Close each <li> with </li>',
-                    'Close the list with </ul> or </ol>',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Lists', url: 'https://www.w3schools.com/html/html_lists.asp' },
-                    { text: 'HTML Unordered Lists', url: 'https://www.w3schools.com/html/html_lists_unordered.asp' },
-                    { text: 'HTML Ordered Lists', url: 'https://www.w3schools.com/html/html_lists_ordered.asp' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>Here are some things I like:</p>
-    <!-- Add your list here -->
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasList = /<(ul|ol)[^>]*>/i.test(code);
+                    const hasList = /<(ul|ol)[^>]*>.*<\/(ul|ol)>/i.test(code);
                     const hasLi = /<li[^>]*>.*<\/li>/i.test(code);
                     return hasList && hasLi;
-                },
-                expectedElements: ['<ul> or <ol>', '<li>']
+                }
             },
             {
                 id: 'html-4',
                 category: 'HTML',
-                title: 'Adding Links',
-                description: 'Links (<a>) connect your webpage to other pages or websites. The href attribute tells the browser where to go when clicked. Links are what make the web "web-like"!',
-                whyImportant: 'Links are the foundation of navigation on the web. They allow users to move between pages and discover new content.',
-                whatToDo: [
-                    'Add an <a> tag (anchor tag for links)',
-                    'Add the href attribute with a URL, like href="https://example.com"',
-                    'Add the clickable text between <a> and </a>',
-                    'Close with </a>',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Links', url: 'https://www.w3schools.com/html/html_links.asp' },
-                    { text: 'HTML Links - href Attribute', url: 'https://www.w3schools.com/html/html_links.asp#href' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>Check out this cool website:</p>
-    <!-- Add your link here -->
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasLink = /<a[^>]*href\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    const hasLink = /<a[^>]*href\s*=\s*["'][^"']+["'][^>]*>.*<\/a>/i.test(code);
                     return hasLink;
-                },
-                expectedElements: ['<a> with href attribute']
+                }
             },
             {
                 id: 'html-5',
                 category: 'HTML',
-                title: 'Adding Images',
-                description: 'Images (<img>) make webpages visually appealing. The src attribute points to the image file, and alt provides a text description for accessibility.',
-                whyImportant: 'Images engage users and convey information quickly. The alt attribute is crucial for screen readers and when images fail to load.',
-                whatToDo: [
-                    'Add an <img> tag (image tag - note: it doesn\'t need a closing tag!)',
-                    'Add src attribute with an image URL. You can use: src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" (a free stock image)',
-                    'Add alt attribute with a description, like alt="A beautiful landscape"',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Images', url: 'https://www.w3schools.com/html/html_images.asp' },
-                    { text: 'HTML img src Attribute', url: 'https://www.w3schools.com/tags/att_img_src.asp' },
-                    { text: 'HTML img alt Attribute', url: 'https://www.w3schools.com/tags/att_img_alt.asp' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>Here's a beautiful image:</p>
-    <!-- Add your image here using: <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="description"> -->
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasImg = /<img[^>]*>/i.test(code);
-                    const hasAlt = /alt\s*=\s*["'][^"']+["']/i.test(code);
+                    const hasImg = /<img[^>]*src\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    const hasAlt = /<img[^>]*alt\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
                     return hasImg && hasAlt;
-                },
-                expectedElements: ['<img> with alt attribute']
+                }
             },
             {
                 id: 'css-1',
                 category: 'CSS',
-                title: 'Introduction to CSS',
-                description: 'CSS (Cascading Style Sheets) makes your webpage beautiful! It controls colors, fonts, spacing, and layout. We\'ll add a <style> tag in the <head> to style our HTML. For example, you could use: body { color: blue; } to make all text blue, or h1 { font-size: 32px; } to make headings larger, or p { background-color: yellow; } to add a yellow background to paragraphs.',
-                whyImportant: 'CSS separates content (HTML) from presentation (styling). This makes websites maintainable and allows for consistent design across pages.',
-                whatToDo: [
-                    'Look at the <style> tag already in the code',
-                    'Inside the <style> tag, add a CSS rule like: body { color: blue; }',
-                    'A CSS rule has: selector { property: value; }',
-                    'Make sure to end each property with a semicolon (;)',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'CSS Introduction', url: 'https://www.w3schools.com/css/css_intro.asp' },
-                    { text: 'CSS Syntax', url: 'https://www.w3schools.com/css/css_syntax.asp' },
-                    { text: 'CSS How To', url: 'https://www.w3schools.com/css/css_howto.asp' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-    <style>
-        /* Add your CSS here */
-    </style>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>This is my webpage!</p>
-</body>
-</html>`,
                 validator: (code) => {
                     const hasStyle = /<style[^>]*>/i.test(code);
                     const hasCssRule = /[a-z-]+\s*:\s*[^;]+;/i.test(code);
                     return hasStyle && hasCssRule;
-                },
-                expectedElements: ['<style> tag', 'CSS rule']
+                }
             },
             {
                 id: 'css-2',
                 category: 'CSS',
-                title: 'Styling Text',
-                description: 'Let\'s make text more readable and attractive! You can change font size, color, and weight. We\'ll style the <h1> and <p> elements.',
-                whyImportant: 'Well-styled text improves readability and user experience. It helps guide users\' attention to important information.',
-                whatToDo: [
-                    'Inside the h1 { } block, add: color: blue; (or any color)',
-                    'Inside the h1 { } block, add: font-size: 32px; (or any size)',
-                    'Inside the p { } block, add: color: green; (or any color)',
-                    'Inside the p { } block, add: font-size: 16px; (or any size)',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'CSS Colors', url: 'https://www.w3schools.com/css/css_colors.asp' },
-                    { text: 'CSS Fonts', url: 'https://www.w3schools.com/css/css_font.asp' },
-                    { text: 'CSS Text', url: 'https://www.w3schools.com/css/css_text.asp' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-    <style>
-        h1 {
-            /* Style your heading */
-        }
-        p {
-            /* Style your paragraph */
-        }
-    </style>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>This is my webpage!</p>
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasColor = /color\s*:/i.test(code);
-                    const hasFontSize = /font-size\s*:/i.test(code);
-                    return hasColor && hasFontSize;
-                },
-                expectedElements: ['color property', 'font-size property']
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasTextStyling = /(color|font-size|font-weight)\s*:\s*[^;]+;/i.test(code);
+                    return hasStyle && hasTextStyling;
+                }
             },
             {
                 id: 'css-3',
                 category: 'CSS',
-                title: 'Adding Backgrounds and Borders',
-                description: 'Backgrounds and borders add visual interest and help separate content. You can set background colors and add borders to elements.',
-                whyImportant: 'Backgrounds and borders create visual hierarchy and make your content stand out. They help organize information on the page.',
-                whatToDo: [
-                    'Inside the body { } block, add: background-color: lightblue; (or any color)',
-                    'Inside the h1 { } block, add: border: 2px solid black; (or any border style)',
-                    'Make sure each property ends with a semicolon (;)',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'CSS Backgrounds', url: 'https://www.w3schools.com/css/css_background.asp' },
-                    { text: 'CSS Borders', url: 'https://www.w3schools.com/css/css_border.asp' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-    <style>
-        body {
-            /* Add background color */
-        }
-        h1 {
-            /* Add border */
-        }
-    </style>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>This is my webpage!</p>
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasBackground = /background(-color)?\s*:/i.test(code);
-                    const hasBorder = /border\s*:/i.test(code);
-                    return hasBackground && hasBorder;
-                },
-                expectedElements: ['background-color', 'border']
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasBgOrBorder = /(background-color|border)\s*:\s*[^;]+;/i.test(code);
+                    return hasStyle && hasBgOrBorder;
+                }
             },
             {
                 id: 'css-4',
                 category: 'CSS',
-                title: 'Spacing with Margin and Padding',
-                description: 'Margin creates space outside an element, while padding creates space inside. These are essential for creating readable, well-spaced layouts.',
-                whyImportant: 'Proper spacing makes content easier to read and prevents elements from feeling cramped. It\'s a key principle of good design.',
-                whatToDo: [
-                    'Inside the p { } block, add: margin: 10px; (creates space outside)',
-                    'Inside the p { } block, add: padding: 15px; (creates space inside)',
-                    'You can use any values, like 20px, 5px, etc.',
-                    'Make sure each property ends with a semicolon (;)',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'CSS Margin', url: 'https://www.w3schools.com/css/css_margin.asp' },
-                    { text: 'CSS Padding', url: 'https://www.w3schools.com/css/css_padding.asp' },
-                    { text: 'CSS Box Model', url: 'https://www.w3schools.com/css/css_boxmodel.asp' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-        }
-        p {
-            /* Add margin and padding */
-        }
-    </style>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>This is my webpage!</p>
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasMargin = /margin\s*:/i.test(code);
-                    const hasPadding = /padding\s*:/i.test(code);
-                    return hasMargin && hasPadding;
-                },
-                expectedElements: ['margin', 'padding']
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasSpacing = /(margin|padding)\s*:\s*[^;]+;/i.test(code);
+                    return hasStyle && hasSpacing;
+                }
             },
             {
                 id: 'css-5',
                 category: 'CSS',
-                title: 'CSS Selectors: IDs and Classes',
-                description: 'IDs and classes let you target specific elements with CSS. An ID is unique (only one per page) and uses # in CSS. A class can be used multiple times and uses . in CSS. You add id="name" or class="name" to HTML tags, then style them with #name or .name in CSS.',
-                whyImportant: 'IDs and classes are essential for styling specific elements. They let you create reusable styles and organize your CSS. Classes are great for styling multiple elements the same way, while IDs are perfect for unique elements.',
-                whatToDo: [
-                    'Add an id attribute to an HTML element, like <div id="myDiv">',
-                    'Add a class attribute to an HTML element, like <p class="highlight">',
-                    'In CSS, add a rule for the ID using #myDiv { }',
-                    'In CSS, add a rule for the class using .highlight { }',
-                    'Add some CSS properties inside each rule',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'CSS Selectors', url: 'https://www.w3schools.com/css/css_selectors.asp' },
-                    { text: 'CSS id Selector', url: 'https://www.w3schools.com/cssref/sel_id.php' },
-                    { text: 'CSS class Selector', url: 'https://www.w3schools.com/cssref/sel_class.php' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My First Webpage</title>
-    <style>
-        /* Add CSS for an ID using # */
-        /* Add CSS for a class using . */
-    </style>
-</head>
-<body>
-    <div id="container">
-        <p class="highlight">This is highlighted text</p>
-        <p>Regular text</p>
-    </div>
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasId = /id\s*=\s*["'][^"']+["']/i.test(code);
-                    const hasClass = /class\s*=\s*["'][^"']+["']/i.test(code);
-                    const hasIdSelector = /#[a-z][a-z0-9_-]*\s*\{/i.test(code);
-                    const hasClassSelector = /\.[a-z][a-z0-9_-]*\s*\{/i.test(code);
-                    return hasId && hasClass && hasIdSelector && hasClassSelector;
-                },
-                expectedElements: ['id attribute', 'class attribute', 'ID selector (#)', 'Class selector (.)']
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasIdOrClass = /(#[a-z-]+|\.[a-z-]+)\s*\{/i.test(code);
+                    return hasStyle && hasIdOrClass;
+                }
             },
             {
                 id: 'accessibility-1',
                 category: 'Accessibility',
-                title: 'Semantic HTML',
-                description: 'Semantic HTML uses meaningful tags like <header>, <nav>, <main>, <article>, and <footer> instead of just <div>. These tags help screen readers understand your page structure.',
-                whyImportant: 'Semantic HTML makes your website accessible to people using assistive technologies. It also helps search engines understand your content better.',
-                whatToDo: [
-                    'The code already has <header> tag - this is semantic!',
-                    'Add a <main> tag around the paragraph content (replace the div with <main>)',
-                    'The <main> tag should wrap the paragraph: <main><p>This is my accessible webpage!</p></main>',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Semantic Elements', url: 'https://www.w3schools.com/html/html5_semantic_elements.asp' },
-                    { text: 'HTML header Tag', url: 'https://www.w3schools.com/tags/tag_header.asp' },
-                    { text: 'HTML main Tag', url: 'https://www.w3schools.com/tags/tag_main.asp' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My Accessible Webpage</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome</h1>
-    </header>
-    <div>
-        <p>This is my accessible webpage!</p>
-    </div>
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasHeader = /<header[^>]*>/i.test(code);
-                    const hasMain = /<main[^>]*>/i.test(code);
-                    return hasHeader && hasMain;
-                },
-                expectedElements: ['<header>', '<main>']
+                    const hasLang = /<html[^>]*lang\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    const hasSemantic = /<(header|main|footer|nav|article|section)[^>]*>/i.test(code);
+                    return hasLang && hasSemantic;
+                }
             },
             {
                 id: 'accessibility-2',
                 category: 'Accessibility',
-                title: 'Alt Text for Images',
-                description: 'We already added alt text to images, but let\'s make sure it\'s descriptive! Good alt text describes what the image shows, not just "image" or "picture".',
-                whyImportant: 'Descriptive alt text allows screen reader users to understand images. It also displays when images fail to load, helping all users.',
-                whatToDo: [
-                    'Find the <img> tag in the code',
-                    'Replace "Add descriptive text here" in the alt attribute with a real description',
-                    'Write what the image shows, like "A red sunset over the ocean" or "A cat sitting on a windowsill"',
-                    'Make it at least 10 characters and don\'t use words like "image" or "picture"',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML img alt Attribute', url: 'https://www.w3schools.com/tags/att_img_alt.asp' },
-                    { text: 'Accessibility - Images', url: 'https://www.w3schools.com/accessibility/accessibility_images.php' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My Accessible Webpage</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome</h1>
-    </header>
-    <main>
-        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Add descriptive text here">
-    </main>
-</body>
-</html>`,
                 validator: (code) => {
                     const hasImg = /<img[^>]*>/i.test(code);
-                    const altMatch = code.match(/alt\s*=\s*["']([^"']+)["']/i);
-                    return hasImg && altMatch && altMatch[1].length > 10 && 
-                           !altMatch[1].toLowerCase().includes('image') && 
-                           !altMatch[1].toLowerCase().includes('picture');
-                },
-                expectedElements: ['Descriptive alt text']
+                    const hasAlt = /<img[^>]*alt\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    return hasImg && hasAlt && code.match(/alt\s*=\s*["'][^"']{10,}["']/i);
+                }
             },
             {
                 id: 'accessibility-3',
                 category: 'Accessibility',
-                title: 'Proper Heading Hierarchy',
-                description: 'Headings should follow a logical order: <h1> for the main title, <h2> for major sections, <h3> for subsections, etc. Never skip levels (don\'t go from <h1> to <h3>).',
-                whyImportant: 'Screen readers use headings to navigate. A proper hierarchy helps users understand the page structure and jump to sections they care about.',
-                whatToDo: [
-                    'The code already has <h1> for the main title',
-                    'Add an <h2> tag for a major section, like: <h2>About</h2>',
-                    'Make sure you have both <h1> and <h2> tags',
-                    'Don\'t skip heading levels (don\'t go from h1 directly to h3)',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML Headings', url: 'https://www.w3schools.com/html/html_headings.asp' },
-                    { text: 'Accessibility - Headings', url: 'https://www.w3schools.com/accessibility/accessibility_headings.php' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My Accessible Webpage</title>
-</head>
-<body>
-    <header>
-        <h1>Main Title</h1>
-    </header>
-    <main>
-        <p>Content here</p>
-    </main>
-</body>
-</html>`,
                 validator: (code) => {
                     const hasH1 = /<h1[^>]*>/i.test(code);
                     const hasH2 = /<h2[^>]*>/i.test(code);
-                    const headings = code.match(/<h([1-6])[^>]*>/gi) || [];
-                    const levels = headings.map(h => parseInt(h.match(/h([1-6])/i)[1]));
-                    let valid = true;
-                    for (let i = 1; i < levels.length; i++) {
-                        if (levels[i] > levels[i-1] + 1) {
-                            valid = false;
-                            break;
-                        }
-                    }
-                    return hasH1 && hasH2 && valid;
-                },
-                expectedElements: ['Proper heading hierarchy']
+                    const h1Index = code.search(/<h1[^>]*>/i);
+                    const h2Index = code.search(/<h2[^>]*>/i);
+                    return hasH1 && hasH2 && h1Index < h2Index;
+                }
             },
             {
                 id: 'accessibility-4',
                 category: 'Accessibility',
-                title: 'Keyboard Navigation and Focus',
-                description: 'All interactive elements (links, buttons) should be keyboard accessible. Add :focus styles so users can see which element has focus when navigating with Tab.',
-                whyImportant: 'Many users navigate websites using only the keyboard. Visible focus indicators are essential for these users to know where they are on the page.',
-                whatToDo: [
-                    'Inside the a:focus { } block, add focus styles',
-                    'Add: outline: 2px solid blue; (or any color)',
-                    'You can also add: background-color: yellow; to make it more visible',
-                    'Make sure each property ends with a semicolon (;)',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'CSS :focus Pseudo-class', url: 'https://www.w3schools.com/cssref/sel_focus.php' },
-                    { text: 'CSS outline Property', url: 'https://www.w3schools.com/cssref/pr_outline.php' },
-                    { text: 'Accessibility - Keyboard Navigation', url: 'https://www.w3schools.com/accessibility/accessibility_keyboard.php' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My Accessible Webpage</title>
-    <style>
-        a:focus {
-            /* Add focus styles */
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-        </nav>
-    </header>
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasFocus = /:focus\s*\{/i.test(code);
-                    const hasFocusStyle = /:focus[^}]*\{[^}]*[^}]+\}/i.test(code);
-                    return hasFocus && hasFocusStyle;
-                },
-                expectedElements: [':focus pseudo-class', 'Focus styles']
+                    const hasNav = /<nav[^>]*>/i.test(code);
+                    const hasLinks = /<a[^>]*href[^>]*>/i.test(code);
+                    const hasFocusStyle = /:focus\s*\{[^}]*\}/i.test(code);
+                    return hasNav && hasLinks && hasFocusStyle;
+                }
             },
             {
                 id: 'accessibility-5',
                 category: 'Accessibility',
-                title: 'ARIA Labels and Roles',
-                description: 'ARIA (Accessible Rich Internet Applications) attributes help screen readers understand your page better. aria-label provides a text label for elements, and role describes what an element does. For example, role="button" tells screen readers an element acts like a button, even if it\'s not a <button> tag.',
-                whyImportant: 'ARIA attributes make complex interfaces accessible. They help screen readers understand elements that might not be clear from HTML alone, like custom buttons or interactive regions.',
-                whatToDo: [
-                    'The code already has role="navigation" on the nav element',
-                    'The code already has aria-label on the button',
-                    'Add an aria-label attribute to the div element, like: <div aria-label="Click to expand">',
-                    'Or add a role attribute to the div, like: <div role="button">',
-                    'You can add both if you want: <div role="button" aria-label="Click to expand">',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'ARIA Introduction', url: 'https://www.w3schools.com/accessibility/accessibility_aria.php' },
-                    { text: 'ARIA Labels', url: 'https://www.w3schools.com/accessibility/accessibility_aria_labels.php' },
-                    { text: 'ARIA Roles', url: 'https://www.w3schools.com/accessibility/accessibility_aria_roles.php' }
-                ],
-                codeTemplate: `<html>
-<head>
-    <title>My Accessible Webpage</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome</h1>
-        <nav role="navigation">
-            <button aria-label="Menu">☰</button>
-        </nav>
-    </header>
-    <main>
-        <div>Expand section</div>
-    </main>
-</body>
-</html>`,
                 validator: (code) => {
+                    const hasInput = /<input[^>]*>/i.test(code);
+                    const hasLabel = /<label[^>]*for\s*=\s*["'][^"']+["'][^>]*>.*<\/label>/i.test(code);
                     const hasAriaLabel = /aria-label\s*=\s*["'][^"']+["']/i.test(code);
-                    const hasRole = /role\s*=\s*["'][^"']+["']/i.test(code);
-                    return hasAriaLabel && hasRole;
-                },
-                expectedElements: ['aria-label attribute', 'role attribute']
+                    return hasInput && (hasLabel || hasAriaLabel);
+                }
             },
             {
                 id: 'accessibility-6',
                 category: 'Accessibility',
-                title: 'More Accessibility Features',
-                description: 'There are many more accessibility features! Use lang attribute on <html> to specify the page language. Add aria-describedby to connect descriptions to elements. Use proper form labels with <label> tags. These small details make a big difference for users with disabilities.',
-                whyImportant: 'Accessibility is about attention to detail. Every small improvement helps more people use your website. These features are required for websites to be truly accessible to everyone.',
-                whatToDo: [
-                    'The code already has lang="en" on the <html> tag',
-                    'The code already has aria-describedby connecting an element to its description',
-                    'Add a <label> tag before the input, like: <label for="username">Username:</label>',
-                    'The for attribute should match the input\'s id attribute (both are "username")',
-                    'Click "Verify Code" to check your work'
-                ],
-                w3schoolsLinks: [
-                    { text: 'HTML lang Attribute', url: 'https://www.w3schools.com/tags/ref_language_codes.asp' },
-                    { text: 'HTML label Tag', url: 'https://www.w3schools.com/tags/tag_label.asp' },
-                    { text: 'ARIA Describedby', url: 'https://www.w3schools.com/accessibility/accessibility_aria_describedby.php' },
-                    { text: 'Accessibility Overview', url: 'https://www.w3schools.com/accessibility/index.php' }
-                ],
-                codeTemplate: `<html lang="en">
-<head>
-    <title>My Accessible Webpage</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome</h1>
-    </header>
-    <main>
-        <form>
-            <!-- Add a label tag here connected to the input using the for attribute -->
-            <input type="text" id="username" name="username">
-        </form>
-        <p id="description">This is a description</p>
-        <div aria-describedby="description">Content here</div>
-    </main>
-</body>
-</html>`,
                 validator: (code) => {
-                    const hasLang = /<html[^>]*lang\s*=\s*["'][^"']+["']/i.test(code);
-                    const hasLabel = /<label[^>]*>/i.test(code);
                     const hasAriaDescribedby = /aria-describedby\s*=\s*["'][^"']+["']/i.test(code);
-                    return hasLang && hasLabel && hasAriaDescribedby;
-                },
-                expectedElements: ['lang attribute on <html>', '<label> tag', 'aria-describedby attribute']
+                    const hasAriaExpanded = /aria-expanded\s*=\s*["'](true|false)["']/i.test(code);
+                    const hasRole = /role\s*=\s*["'][^"']+["']/i.test(code);
+                    return (hasAriaDescribedby || hasAriaExpanded) && hasRole;
+                }
             }
         ];
+
 
         // Glossary of key terms with definitions
         const glossary = {
@@ -1647,6 +491,11 @@
             'accessible web design': 'Designing websites so they work for all users, including those with disabilities, following accessibility principles and standards.'
         };
 
+        // Copy glossary to translations.en.glossary
+        if (translations.en && (!translations.en.glossary || Object.keys(translations.en.glossary).length === 0)) {
+            translations.en.glossary = { ...glossary };
+        }
+
         // Function to wrap terms with tooltips
         function addTooltips(text) {
             if (!text) return text;
@@ -1719,10 +568,11 @@
         function TextWithTooltips({ text }) {
             if (!text) return null;
             
-            // Create a case-insensitive lookup map
+            // Create a case-insensitive lookup map using translated glossary
             const glossaryMap = new Map();
             Object.keys(glossary).forEach(key => {
-                glossaryMap.set(key.toLowerCase(), glossary[key]);
+                const translatedDef = getTranslatedGlossary(key);
+                glossaryMap.set(key.toLowerCase(), translatedDef);
             });
             
             const sortedTerms = Object.keys(glossary).sort((a, b) => b.length - a.length);
@@ -1756,7 +606,7 @@
                         const isInsideTag = lastOpenTag > lastCloseTag && !term.startsWith('<');
                         
                         if (!isInsideTag) {
-                            const definition = glossaryMap.get(term.toLowerCase()) || glossary[term];
+                            const definition = glossaryMap.get(term.toLowerCase()) || getTranslatedGlossary(term);
                             if (definition) {
                                 if (beforeMatch) {
                                     parts.push(<React.Fragment key={`text-${keyCounter++}`}>{beforeMatch}</React.Fragment>);
@@ -1820,7 +670,68 @@
             const [hasStarted, setHasStarted] = useState(false);
             const [hintExpanded, setHintExpanded] = useState(false);
             const [completedLessons, setCompletedLessons] = useState(new Set());
+            const [language, setLanguage] = useState('en');
+            const [refreshKey, setRefreshKey] = useState(0);
             const previewFrameRef = useRef(null);
+            const codeRef = useRef('');
+
+            // Update global language and HTML lang attribute
+            useEffect(() => {
+                window.currentLanguage = language;
+                document.documentElement.lang = language;
+                setRefreshKey(prev => prev + 1); // Force re-render
+            }, [language]);
+
+            // Keep codeRef in sync with code state
+            useEffect(() => {
+                codeRef.current = code;
+            }, [code]);
+
+            // Update code template when language changes or translations load (if code matches any template)
+            useEffect(() => {
+                if (!hasStarted || currentLessonIndex >= lessons.length || !translationsLoaded) return;
+                
+                    const currentLessonRaw = lessons[currentLessonIndex];
+                const originalTemplate = currentLessonRaw.codeTemplate || '';
+                const translatedLesson = getTranslatedLesson(currentLessonRaw, language);
+                const translatedTemplate = translatedLesson.codeTemplate || '';
+                
+                // Get the template for the current language
+                const currentLangTemplate = translatedTemplate || originalTemplate;
+                
+                // Helper function to normalize code for comparison (normalizes whitespace)
+                const normalizeCode = (code) => {
+                    return code.trim().replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+                        .replace(/\n\s*\n/g, '\n')  // Remove blank lines
+                        .replace(/[ \t]+/g, ' ')      // Normalize spaces/tabs
+                        .replace(/\n /g, '\n')        // Remove leading spaces after newlines
+                        .trim();
+                };
+                
+                // If we have templates and they differ, check if we should update
+                if (originalTemplate && translatedTemplate && originalTemplate !== translatedTemplate) {
+                    const currentCode = codeRef.current;
+                    const normalizedCurrent = normalizeCode(currentCode);
+                    const normalizedOriginal = normalizeCode(originalTemplate);
+                    const normalizedTranslated = normalizeCode(translatedTemplate);
+                    
+                    // Update if code matches either template (normalized) or is empty
+                    if (normalizedCurrent === normalizedOriginal || 
+                        normalizedCurrent === normalizedTranslated || 
+                        currentCode.trim() === '') {
+                        setCode(currentLangTemplate);
+                    }
+                } else if (currentLangTemplate && codeRef.current.trim() === '') {
+                    // If no translation but code is empty, set the template
+                    setCode(currentLangTemplate);
+                }
+            }, [language, currentLessonIndex, hasStarted, translationsLoaded]);
+
+            // Set up forceUpdate function for translations loading
+            useEffect(() => {
+                window.forceUpdate = () => setRefreshKey(prev => prev + 1);
+                return () => { window.forceUpdate = null; };
+            }, []);
 
             // Load state from URL hash on mount
             useEffect(() => {
@@ -1828,6 +739,10 @@
                 if (hash) {
                     const state = decodeState(hash);
                     if (state) {
+                        // Restore language first, as it affects other state
+                        if (state.language) {
+                            setLanguage(state.language);
+                        }
                         setStudentName(state.name || '');
                         setCurrentLessonIndex(state.lessonIndex || 0);
                         setCode(state.code || '');
@@ -1847,6 +762,7 @@
                         name: studentName,
                         lessonIndex: currentLessonIndex,
                         code: code, // This saves the code every time it changes
+                        language: language, // Save language preference
                         // Convert Set to array for JSON serialization
                         completedLessons: Array.from(completedLessons)
                     };
@@ -1854,7 +770,7 @@
                     // Use replaceState to avoid adding to browser history on every keystroke
                     window.history.replaceState(null, '', '#' + hash);
                 }
-            }, [studentName, currentLessonIndex, code, completedLessons, hasStarted]);
+            }, [studentName, currentLessonIndex, code, completedLessons, hasStarted, language]);
 
             // Update preview when code changes with basic styling
             useEffect(() => {
@@ -1935,24 +851,24 @@
                 if (name) {
                     setStudentName(name);
                     setHasStarted(true);
-                    setCode(lessons[0].codeTemplate || '');
+                    const firstLesson = getTranslatedLesson(lessons[0], language);
+                    setCode(firstLesson.codeTemplate || '');
                 }
             };
 
             const handleVerify = () => {
-                const currentLesson = lessons[currentLessonIndex];
-                if (currentLesson.validator(code)) {
-                    setFeedback({ type: 'success', message: 'Great job! Your code is correct!' });
+                const currentLessonRaw = lessons[currentLessonIndex];
+                const currentLesson = getTranslatedLesson(currentLessonRaw, language);
+                if (currentLessonRaw.validator(code)) {
+                    setFeedback({ type: 'success', message: t('ui.successMessage') });
                     // Mark lesson as completed
                     setCompletedLessons(prev => new Set([...prev, currentLessonIndex]));
                 } else {
-                    const missing = currentLesson.expectedElements.filter(el => {
-                        const pattern = new RegExp(el.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-                        return !pattern.test(code);
-                    });
+                    const expectedElements = currentLesson.expectedElements || currentLessonRaw.expectedElements;
+                    const elementsText = Array.isArray(expectedElements) ? expectedElements.join(', ') : expectedElements;
                     setFeedback({ 
                         type: 'error', 
-                        message: `Not quite right. Make sure you include: ${currentLesson.expectedElements.join(', ')}` 
+                        message: t('ui.errorMessage', { elements: elementsText })
                     });
                 }
             };
@@ -1960,7 +876,8 @@
             const handleNext = () => {
                 if (currentLessonIndex < lessons.length - 1) {
                     setCurrentLessonIndex(currentLessonIndex + 1);
-                    const nextLesson = lessons[currentLessonIndex + 1];
+                    const nextLessonRaw = lessons[currentLessonIndex + 1];
+                    const nextLesson = getTranslatedLesson(nextLessonRaw, language);
                     setCode(nextLesson.codeTemplate || '');
                     setFeedback(null);
                     setHintExpanded(false); // Reset hint when moving to next lesson
@@ -1972,7 +889,8 @@
                     // Current code is already saved via useEffect
                     const prevLessonIndex = currentLessonIndex - 1;
                     setCurrentLessonIndex(prevLessonIndex);
-                    const prevLesson = lessons[prevLessonIndex];
+                    const prevLessonRaw = lessons[prevLessonIndex];
+                    const prevLesson = getTranslatedLesson(prevLessonRaw, language);
                     // Load template for previous lesson (code will be saved as user types)
                     setCode(prevLesson.codeTemplate || '');
                     setFeedback(null);
@@ -1984,7 +902,8 @@
                 if (currentLessonIndex < lessons.length - 1) {
                     // Save current code before skipping
                     setCurrentLessonIndex(currentLessonIndex + 1);
-                    const nextLesson = lessons[currentLessonIndex + 1];
+                    const nextLessonRaw = lessons[currentLessonIndex + 1];
+                    const nextLesson = getTranslatedLesson(nextLessonRaw, language);
                     setCode(nextLesson.codeTemplate || '');
                     setFeedback(null);
                     setHintExpanded(false); // Reset hint when skipping
@@ -2000,7 +919,8 @@
                 const firstLessonIndex = lessons.findIndex(l => l.category === category);
                 if (firstLessonIndex !== -1) {
                     setCurrentLessonIndex(firstLessonIndex);
-                    const targetLesson = lessons[firstLessonIndex];
+                    const targetLessonRaw = lessons[firstLessonIndex];
+                    const targetLesson = getTranslatedLesson(targetLessonRaw, language);
                     setCode(targetLesson.codeTemplate || '');
                     setFeedback(null);
                     setHintExpanded(false);
@@ -2206,7 +1126,8 @@
 
             const isSectionComplete = (progress) => progress.completed === progress.total && progress.total > 0;
 
-            const currentLesson = lessons[currentLessonIndex];
+            const currentLessonRaw = lessons[currentLessonIndex];
+            const currentLesson = getTranslatedLesson(currentLessonRaw, language);
             const isLastLesson = currentLessonIndex === lessons.length - 1;
             const isVerified = feedback?.type === 'success';
             const allLessonsComplete = completedLessons.size === lessons.length;
@@ -2220,22 +1141,21 @@
                 });
                 
                 return (
-                    <div className="certificate" role="main" aria-label="Certificate of Completion">
+                    <div className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
                         <div className="certificate-content">
-                            <h1>Certificate of Completion</h1>
-                            <h2>HTML, CSS & Accessible Web Design</h2>
+                            <h1>{t('ui.certificateTitle')}</h1>
+                            <h2>{t('ui.certificateSubtitle')}</h2>
                             <p className="description">
-                                This certifies that
+                                {t('ui.certificateDescription')}
                             </p>
-                            <div className="student-name" aria-label={`Student name: ${studentName}`}>
+                            <div className="student-name" aria-label={t('ui.studentNameAria', { name: studentName })}>
                                 {studentName}
                             </div>
                             <p className="description">
-                                has successfully completed the interactive tutorial on <TextWithTooltips text="HTML" /> fundamentals, 
-                                <TextWithTooltips text="CSS" /> styling, and <TextWithTooltips text="accessible" /> web design principles.
+                                <TextWithTooltips text={t('ui.certificateCompleted')} />
                             </p>
                             <p className="description" style={{ marginTop: '40px' }}>
-                                This course covered:
+                                {t('ui.certificateCovered')}
                             </p>
                             <ul style={{ textAlign: 'left', display: 'inline-block', marginTop: '20px', fontSize: '16px', lineHeight: '2' }}>
                                 <li><TextWithTooltips text="HTML" /> Fundamentals and Document Structure</li>
@@ -2244,9 +1164,9 @@
                                 <li><TextWithTooltips text="Semantic HTML" /> and <TextWithTooltips text="Keyboard Navigation" /></li>
                             </ul>
                             <p className="date">
-                                Completed on {completionDate}
+                                {t('ui.completedOn')} {completionDate}
                             </p>
-                            <div style={{ marginTop: '40px', fontSize: '48px' }} role="img" aria-label="Congratulations">🎉</div>
+                            <div style={{ marginTop: '40px', fontSize: '48px' }} role="img" aria-label={t('ui.congratulations')}>🎉</div>
                         </div>
                     </div>
                 );
@@ -2257,32 +1177,45 @@
                     <div className="app-container">
                         <div className="lesson-panel">
                             <div className="header">
-                                <h1>Learn HTML, CSS & Accessible Web Design</h1>
-                                <p>An interactive tutorial - Complete in ~1.5 hours</p>
+                                <div className="header-content">
+                                    <h1>{t('ui.title')}</h1>
+                                    <p>{t('ui.subtitle')}</p>
+                                </div>
+                                <div className="language-selector">
+                                    <label htmlFor="language-select" className="sr-only">{t('ui.selectLanguage')}</label>
+                                    <select 
+                                        id="language-select"
+                                        value={language} 
+                                        onChange={(e) => setLanguage(e.target.value)}
+                                        aria-label={t('ui.selectLanguage')}
+                                    >
+                                        <option value="en">English</option>
+                                        <option value="fr">Français</option>
+                                    </select>
+                                </div>
                             </div>
                             <div className="lesson-content">
                                 <div className="welcome-screen">
-                                    <h2>Welcome to Web Development!</h2>
+                                    <h2>{t('ui.welcome')}</h2>
                                     <p>
-                                        This interactive tutorial will teach you the fundamentals of <TextWithTooltips text="HTML" />, <TextWithTooltips text="CSS" />, and <TextWithTooltips text="accessible" /> web design.
-                                        You'll build a webpage step by step, learning essential concepts along the way.
+                                        <TextWithTooltips text={t('ui.welcomeDescription')} />
                                     </p>
                                     <p style={{ fontSize: '14px', color: '#888', fontStyle: 'italic', marginTop: '30px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
-                                        This tutorial was built and designed by Asher Lacho for teaching workshops, but can be taken on its own as a self-paced learning experience.
+                                        {t('ui.tutorialCredit')}
                                     </p>
                                     <form onSubmit={handleNameSubmit} className="name-input">
-                                        <label htmlFor="student-name-input" className="sr-only">Enter your name to begin</label>
+                                        <label htmlFor="student-name-input" className="sr-only">{t('ui.enterName')}</label>
                                         <input 
                                             id="student-name-input"
                                             type="text" 
-                                            placeholder="Enter your name" 
+                                            placeholder={t('ui.enterName')} 
                                             value={studentName} 
                                             onChange={(e) => setStudentName(e.target.value)}
                                             required
                                             autoFocus
-                                            aria-label="Enter your name to begin learning"
+                                            aria-label={t('ui.enterName')}
                                         />
-                                        <button type="submit" className="btn btn-primary" aria-label="Start learning HTML, CSS, and accessibility">Start Learning</button>
+                                        <button type="submit" className="btn btn-primary" aria-label={t('ui.startLearning')}>{t('ui.startLearning')}</button>
                                     </form>
                                 </div>
                             </div>
@@ -2295,11 +1228,25 @@
                 <div className="app-container">
                     <div className="lesson-panel">
                         <div className="header">
-                            <h1>Learn HTML, CSS & Accessible Web Design</h1>
-                            <p>Welcome, {studentName}! • Lesson {currentLessonIndex + 1} of {lessons.length}</p>
+                            <div className="header-content">
+                                <h1>{t('ui.title')}</h1>
+                                <p>{t('ui.welcomeUser', { name: studentName, current: currentLessonIndex + 1, total: lessons.length })}</p>
+                            </div>
+                            <div className="language-selector">
+                                <label htmlFor="language-select-main" className="sr-only">{t('ui.selectLanguage')}</label>
+                                <select 
+                                    id="language-select-main"
+                                    value={language} 
+                                    onChange={(e) => setLanguage(e.target.value)}
+                                    aria-label={t('ui.selectLanguage')}
+                                >
+                                    <option value="en">English</option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="progress-section">
-                            <div className="progress-title">Course Progress - Click any section to jump to it</div>
+                            <div className="progress-title">{t('ui.courseProgress')}</div>
                             <div className="progress-circles">
                                 <div className="progress-circle-container">
                                     <div 
@@ -2313,14 +1260,14 @@
                                         }}
                                         tabIndex="0"
                                         role="button"
-                                        aria-label={`Jump to HTML Fundamentals section. ${htmlFundamentalsProgress.completed} of ${htmlFundamentalsProgress.total} lessons completed.`}
+                                        aria-label={t('ui.jumpToSection', { section: t('categories.htmlFundamentals'), completed: htmlFundamentalsProgress.completed, total: htmlFundamentalsProgress.total })}
                                     >
                                         {htmlFundamentalsProgress.completed}/{htmlFundamentalsProgress.total}
                                         {isSectionComplete(htmlFundamentalsProgress) && (
-                                            <span className="progress-star" role="img" aria-label="Completed">⭐</span>
+                                            <span className="progress-star" role="img" aria-label={t('ui.completed')}>⭐</span>
                                         )}
                                     </div>
-                                    <div className="progress-label">HTML Fundamentals</div>
+                                    <div className="progress-label">{t('categories.htmlFundamentals')}</div>
                                 </div>
                                 <div className="progress-circle-container">
                                     <div 
@@ -2334,14 +1281,14 @@
                                         }}
                                         tabIndex="0"
                                         role="button"
-                                        aria-label={`Jump to HTML section. ${htmlProgress.completed} of ${htmlProgress.total} lessons completed.`}
+                                        aria-label={t('ui.jumpToSection', { section: t('categories.html'), completed: htmlProgress.completed, total: htmlProgress.total })}
                                     >
                                         {htmlProgress.completed}/{htmlProgress.total}
                                         {isSectionComplete(htmlProgress) && (
-                                            <span className="progress-star" role="img" aria-label="Completed">⭐</span>
+                                            <span className="progress-star" role="img" aria-label={t('ui.completed')}>⭐</span>
                                         )}
                                     </div>
-                                    <div className="progress-label">HTML</div>
+                                    <div className="progress-label">{t('categories.html')}</div>
                                 </div>
                                 <div className="progress-circle-container">
                                     <div 
@@ -2355,14 +1302,14 @@
                                         }}
                                         tabIndex="0"
                                         role="button"
-                                        aria-label={`Jump to CSS section. ${cssProgress.completed} of ${cssProgress.total} lessons completed.`}
+                                        aria-label={t('ui.jumpToSection', { section: t('categories.css'), completed: cssProgress.completed, total: cssProgress.total })}
                                     >
                                         {cssProgress.completed}/{cssProgress.total}
                                         {isSectionComplete(cssProgress) && (
-                                            <span className="progress-star" role="img" aria-label="Completed">⭐</span>
+                                            <span className="progress-star" role="img" aria-label={t('ui.completed')}>⭐</span>
                                         )}
                                     </div>
-                                    <div className="progress-label">CSS</div>
+                                    <div className="progress-label">{t('categories.css')}</div>
                                 </div>
                                 <div className="progress-circle-container">
                                     <div 
@@ -2376,14 +1323,14 @@
                                         }}
                                         tabIndex="0"
                                         role="button"
-                                        aria-label={`Jump to Accessibility section. ${accessibilityProgress.completed} of ${accessibilityProgress.total} lessons completed.`}
+                                        aria-label={t('ui.jumpToSection', { section: t('categories.accessibility'), completed: accessibilityProgress.completed, total: accessibilityProgress.total })}
                                     >
                                         {accessibilityProgress.completed}/{accessibilityProgress.total}
                                         {isSectionComplete(accessibilityProgress) && (
-                                            <span className="progress-star" role="img" aria-label="Completed">⭐</span>
+                                            <span className="progress-star" role="img" aria-label={t('ui.completed')}>⭐</span>
                                         )}
                                     </div>
-                                    <div className="progress-label">Accessibility</div>
+                                    <div className="progress-label">{t('categories.accessibility')}</div>
                                 </div>
                             </div>
                         </div>
@@ -2394,9 +1341,9 @@
                             <div className="lesson-section">
                                 <h2 className="lesson-title">{currentLesson.title}</h2>
                                 <div className="lesson-description">
-                                    <p><strong>What we're learning:</strong> <TextWithTooltips text={currentLesson.description} /></p>
+                                    <p><strong>{t('ui.whatWeLearning')}</strong> <TextWithTooltips text={currentLesson.description} /></p>
                                     <p style={{ marginTop: '15px' }}>
-                                        <strong>Why it's important:</strong> <TextWithTooltips text={currentLesson.whyImportant} />
+                                        <strong>{t('ui.whyImportant')}</strong> <TextWithTooltips text={currentLesson.whyImportant} />
                                     </p>
                                 </div>
 
@@ -2407,9 +1354,9 @@
                                             onClick={() => setHintExpanded(!hintExpanded)}
                                             aria-expanded={hintExpanded}
                                             aria-controls="hint-content"
-                                            aria-label={hintExpanded ? 'Hide hint' : 'Show hint'}
+                                            aria-label={hintExpanded ? t('ui.hideHint') : t('ui.showHint')}
                                         >
-                                            <span>💡 Need a hint? Click to see what to do</span>
+                                            <span>{t('ui.needHint')}</span>
                                             <span className="hint-icon" aria-hidden="true">▼</span>
                                         </button>
                                         <div
@@ -2417,9 +1364,9 @@
                                             className="hint-content"
                                             aria-hidden={!hintExpanded}
                                             role="region"
-                                            aria-label="Hint instructions"
+                                            aria-label={t('ui.hintRegion')}
                                         >
-                                            <h3>📋 What to do:</h3>
+                                            <h3>{t('ui.whatToDo')}</h3>
                                             <ol>
                                                 {currentLesson.whatToDo.map((step, index) => (
                                                     <li key={index}><TextWithTooltips text={step} /></li>
@@ -2430,7 +1377,7 @@
                                 )}
 
                                 <div className="code-input">
-                                    <label htmlFor="code-editor">Type your code here:</label>
+                                    <label htmlFor="code-editor">{t('ui.typeCodeHere')}</label>
                                     <div className="code-editor-container">
                                         <div className="code-editor-header">
                                             <div className="code-editor-dot red" aria-hidden="true"></div>
@@ -2449,34 +1396,34 @@
                                         />
                                     </div>
                                     <div id="code-editor-description" className="sr-only">
-                                        Code editor with auto-indentation. Press Tab to indent, Shift+Tab to unindent, Enter to maintain indentation.
+                                        {t('ui.codeEditorDescription')}
                                     </div>
                                 </div>
 
                                 <div className="button-group">
                                     {currentLessonIndex > 0 && (
-                                        <button onClick={handleBack} className="btn btn-secondary" aria-label="Go back to previous lesson">
-                                            ← Back
+                                        <button onClick={handleBack} className="btn btn-secondary" aria-label={t('ui.back')}>
+                                            {t('ui.back')}
                                         </button>
                                     )}
-                                    <button onClick={handleVerify} className="btn btn-primary" aria-label="Verify your code is correct">
-                                        Verify Code
+                                    <button onClick={handleVerify} className="btn btn-primary" aria-label={t('ui.verifyCode')}>
+                                        {t('ui.verifyCode')}
                                     </button>
                                     {!isLastLesson && (
-                                        <button onClick={handleSkip} className="btn btn-secondary" aria-label="Skip to next lesson">
-                                            Skip →
+                                        <button onClick={handleSkip} className="btn btn-secondary" aria-label={t('ui.skip')}>
+                                            {t('ui.skip')}
                                         </button>
                                     )}
                                     {feedback && (
                                         <>
                                             {feedback.type === 'error' && (
-                                                <button onClick={handleTryAgain} className="btn btn-secondary" aria-label="Try the lesson again">
-                                                    Try Again
+                                                <button onClick={handleTryAgain} className="btn btn-secondary" aria-label={t('ui.tryAgain')}>
+                                                    {t('ui.tryAgain')}
                                                 </button>
                                             )}
                                             {isVerified && !isLastLesson && (
-                                                <button onClick={handleNext} className="btn btn-success" aria-label="Continue to next lesson">
-                                                    Next Lesson →
+                                                <button onClick={handleNext} className="btn btn-success" aria-label={t('ui.nextLesson')}>
+                                                    {t('ui.nextLesson')}
                                                 </button>
                                             )}
                                         </>
@@ -2491,7 +1438,7 @@
 
                                 {currentLesson.w3schoolsLinks && currentLesson.w3schoolsLinks.length > 0 && (
                                     <div className="w3schools-links">
-                                        <h3>📚 Learn More on W3Schools</h3>
+                                        <h3>{t('ui.learnMore')}</h3>
                                         <ul>
                                             {currentLesson.w3schoolsLinks.map((link, index) => (
                                                 <li key={index}>
@@ -2510,7 +1457,7 @@
                                 )}
 
                                 <div className="url-share">
-                                    <p><strong>💡 Tip:</strong> Copy this URL to save your progress and resume later:</p>
+                                    <p><strong>{t('ui.tip')}</strong> {t('ui.copyUrl')}</p>
                                     <input 
                                         type="text" 
                                         readOnly 
@@ -2524,14 +1471,14 @@
 
                     <div className="preview-panel">
                         <div className="preview-header">
-                            Your Webpage Preview
+                            {t('ui.preview')}
                         </div>
                         <iframe
                             ref={previewFrameRef}
                             className="preview-frame"
-                            title="Live preview of your HTML and CSS code"
-                            aria-label="Live preview of your webpage"
-                            sandbox="allow-same-origin"
+                            title={t('ui.previewAria')}
+                            aria-label={t('ui.previewAria')}
+                            sandbox="allow-same-origin allow-scripts"
                         />
                     </div>
                 </div>

@@ -51,15 +51,32 @@ This tutorial was built and designed by **Asher Lacho** for teaching workshops, 
 
 ## 🚀 Getting Started
 
-### Option 1: Use Online (Recommended)
+### Option 1: Run Local Web Server (Recommended)
 
-Simply open `index.html` in your web browser. No installation or setup required!
+Due to browser security (CORS), you need to run a local web server:
 
-1. Download or clone this repository
-2. Open `index.html` in any modern web browser (Chrome, Firefox, Safari, Edge)
-3. Enter your name and click "Start Learning"
+```bash
+# Quick start - Python (no installation needed)
+python3 server.py
 
-### Option 2: Use Local Server
+# Or use Python's built-in server
+python3 -m http.server 8000
+
+# Then open: http://localhost:8000
+```
+
+**Note:** Opening `index.html` directly (double-click) will cause CORS errors. Use a server!
+
+### Option 2: Create Standalone Version
+
+For a single file that works without a server:
+
+```bash
+python3 embed_translations.py
+# Opens: index-standalone.html
+```
+
+### Option 3: Use Local Server
 
 For the best experience, you can run a local server:
 
