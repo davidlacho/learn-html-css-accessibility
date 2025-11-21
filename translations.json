@@ -41,7 +41,8 @@
       "studentNameAria": "Student name: {name}",
       "completed": "Completed",
       "jumpToSection": "Jump to {section} section. {completed} of {total} lessons completed.",
-      "hintRegion": "Hint instructions"
+      "hintRegion": "Hint instructions",
+      "codePlaceholder": "<!-- Start typing your HTML/CSS code here... -->"
     },
     "categories": {
       "htmlFundamentals": "HTML Fundamentals",
@@ -456,7 +457,8 @@
       "studentNameAria": "Nom de l'étudiant : {name}",
       "completed": "Terminé",
       "jumpToSection": "Aller à la section {section}. {completed} sur {total} leçons terminées.",
-      "hintRegion": "Instructions d'aide"
+      "hintRegion": "Instructions d'aide",
+      "codePlaceholder": "<!-- Commencez à taper votre code HTML/CSS ici... -->"
     },
     "categories": {
       "htmlFundamentals": "Fondamentaux HTML",
