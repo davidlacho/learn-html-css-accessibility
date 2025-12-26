@@ -29,11 +29,14 @@
                 if (window.forceUpdate) {
                     window.forceUpdate();
                 }
+                // Also trigger a custom event for components to listen to
+                window.dispatchEvent(new CustomEvent('translationsLoaded'));
             })
             .catch(error => {
                 console.error('Error loading translations:', error);
                 // Fallback: translations will be empty, app will use keys
                 translationsLoaded = true;
+                window.dispatchEvent(new CustomEvent('translationsLoaded'));
             });
 
         // Translation helper function
@@ -731,7 +734,22 @@
             // Set up forceUpdate function for translations loading
             useEffect(() => {
                 window.forceUpdate = () => setRefreshKey(prev => prev + 1);
-                return () => { window.forceUpdate = null; };
+                
+                // Listen for translations loaded event
+                const handleTranslationsLoaded = () => {
+                    setRefreshKey(prev => prev + 1);
+                };
+                window.addEventListener('translationsLoaded', handleTranslationsLoaded);
+                
+                // Also check if translations are already loaded
+                if (translationsLoaded) {
+                    setRefreshKey(prev => prev + 1);
+                }
+                
+                return () => { 
+                    window.forceUpdate = null;
+                    window.removeEventListener('translationsLoaded', handleTranslationsLoaded);
+                };
             }, []);
 
             // Load state from URL hash on mount
@@ -1277,7 +1295,8 @@
             const allLessonsComplete = completedLessons.size === lessons.length;
 
             // Show certificate when all lessons are complete
-            if (allLessonsComplete && hasStarted && studentName) {
+            // Use refreshKey to ensure re-render when translations load
+            if (allLessonsComplete && hasStarted && studentName && refreshKey >= 0) {
                 const completionDate = new Date().toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-US', { 
                     year: 'numeric', 
                     month: 'long', 
