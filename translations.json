@@ -109,6 +109,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<p>This is a paragraph</p>\n<!-- Add tags with id and class attributes here -->",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Attributes",
+            "url": "https://www.w3schools.com/html/html_attributes.asp"
+          },
+          {
+            "text": "HTML id Attribute",
+            "url": "https://www.w3schools.com/html/html_id.asp"
+          },
+          {
+            "text": "HTML class Attribute",
+            "url": "https://www.w3schools.com/html/html_classes.asp"
+          }
+        ],
         "expectedElements": [
           "A tag with id attribute",
           "A tag with class attribute"
@@ -125,6 +139,24 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<p>This is a paragraph</p>\n<!-- Add div with class, span, strong, and em tags here -->\n<!-- Remember: parent elements contain children, but children need their own attributes -->",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML div Tag",
+            "url": "https://www.w3schools.com/tags/tag_div.asp"
+          },
+          {
+            "text": "HTML span Tag",
+            "url": "https://www.w3schools.com/tags/tag_span.asp"
+          },
+          {
+            "text": "HTML strong Tag",
+            "url": "https://www.w3schools.com/tags/tag_strong.asp"
+          },
+          {
+            "text": "HTML em Tag",
+            "url": "https://www.w3schools.com/tags/tag_em.asp"
+          }
+        ],
         "expectedElements": [
           "<div> with class attribute",
           "<span>",
@@ -142,6 +174,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome to my page!</h1>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Basic Structure",
+            "url": "https://www.w3schools.com/html/html_basic.asp"
+          },
+          {
+            "text": "HTML head Element",
+            "url": "https://www.w3schools.com/html/html_head.asp"
+          },
+          {
+            "text": "HTML title Tag",
+            "url": "https://www.w3schools.com/tags/tag_title.asp"
+          }
+        ],
         "expectedElements": [
           "<html>",
           "<head>",
@@ -159,6 +205,16 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <!-- Add your heading and paragraph here -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Headings",
+            "url": "https://www.w3schools.com/html/html_headings.asp"
+          },
+          {
+            "text": "HTML Paragraphs",
+            "url": "https://www.w3schools.com/html/html_paragraphs.asp"
+          }
+        ],
         "expectedElements": [
           "<h1>",
           "<p>"
@@ -175,6 +231,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Here are some things I like:</p>\n    <!-- Add your list here -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Lists",
+            "url": "https://www.w3schools.com/html/html_lists.asp"
+          },
+          {
+            "text": "HTML Unordered Lists",
+            "url": "https://www.w3schools.com/html/html_lists_unordered.asp"
+          },
+          {
+            "text": "HTML Ordered Lists",
+            "url": "https://www.w3schools.com/html/html_lists_ordered.asp"
+          }
+        ],
         "expectedElements": [
           "<ul> or <ol>",
           "<li>"
@@ -191,6 +261,16 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Check out this cool website:</p>\n    <!-- Add your link here -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Links",
+            "url": "https://www.w3schools.com/html/html_links.asp"
+          },
+          {
+            "text": "HTML a Tag",
+            "url": "https://www.w3schools.com/tags/tag_a.asp"
+          }
+        ],
         "expectedElements": [
           "<a> with href attribute"
         ]
@@ -206,6 +286,16 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Here's a beautiful image:</p>\n    <!-- Add your image here using: <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"description\"> -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Images",
+            "url": "https://www.w3schools.com/html/html_images.asp"
+          },
+          {
+            "text": "HTML img Tag",
+            "url": "https://www.w3schools.com/tags/tag_img.asp"
+          }
+        ],
         "expectedElements": [
           "<img> with alt attribute"
         ]
@@ -221,6 +311,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        /* Add your CSS here */\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Introduction",
+            "url": "https://www.w3schools.com/css/css_intro.asp"
+          },
+          {
+            "text": "CSS Syntax",
+            "url": "https://www.w3schools.com/css/css_syntax.asp"
+          },
+          {
+            "text": "CSS How To",
+            "url": "https://www.w3schools.com/css/css_howto.asp"
+          }
+        ],
         "expectedElements": [
           "<style> tag",
           "CSS rule"
@@ -238,6 +342,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        h1 {\n            /* Style your heading */\n        }\n        p {\n            /* Style your paragraph */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Text",
+            "url": "https://www.w3schools.com/css/css_text.asp"
+          },
+          {
+            "text": "CSS Fonts",
+            "url": "https://www.w3schools.com/css/css_font.asp"
+          },
+          {
+            "text": "CSS Color",
+            "url": "https://www.w3schools.com/css/css_colors.asp"
+          }
+        ],
         "expectedElements": [
           "CSS rule for text"
         ]
@@ -253,6 +371,16 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        body {\n            /* Add background color */\n        }\n        h1 {\n            /* Add border */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Backgrounds",
+            "url": "https://www.w3schools.com/css/css_background.asp"
+          },
+          {
+            "text": "CSS Borders",
+            "url": "https://www.w3schools.com/css/css_border.asp"
+          }
+        ],
         "expectedElements": [
           "background-color or border"
         ]
@@ -268,6 +396,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        body {\n            margin: 0;\n            padding: 20px;\n        }\n        p {\n            /* Add margin and padding */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Margin",
+            "url": "https://www.w3schools.com/css/css_margin.asp"
+          },
+          {
+            "text": "CSS Padding",
+            "url": "https://www.w3schools.com/css/css_padding.asp"
+          },
+          {
+            "text": "CSS Box Model",
+            "url": "https://www.w3schools.com/css/css_boxmodel.asp"
+          }
+        ],
         "expectedElements": [
           "margin or padding"
         ]
@@ -283,6 +425,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        /* Add CSS for an ID using # */\n        /* Add CSS for a class using . */\n    </style>\n</head>\n<body>\n    <div id=\"container\">\n        <p class=\"highlight\">This is highlighted text</p>\n        <p>Regular text</p>\n    </div>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Selectors",
+            "url": "https://www.w3schools.com/css/css_selectors.asp"
+          },
+          {
+            "text": "CSS ID Selector",
+            "url": "https://www.w3schools.com/css/css_id.asp"
+          },
+          {
+            "text": "CSS Class Selector",
+            "url": "https://www.w3schools.com/css/css_class.asp"
+          }
+        ],
         "expectedElements": [
           "ID or class selector"
         ]
@@ -298,6 +454,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <div>\n        <p>This is my accessible webpage!</p>\n    </div>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Semantic Elements",
+            "url": "https://www.w3schools.com/html/html5_semantic_elements.asp"
+          },
+          {
+            "text": "HTML header Tag",
+            "url": "https://www.w3schools.com/tags/tag_header.asp"
+          },
+          {
+            "text": "HTML main Tag",
+            "url": "https://www.w3schools.com/tags/tag_main.asp"
+          }
+        ],
         "expectedElements": [
           "lang attribute on <html>",
           "<header>, <main>, or <footer>"
@@ -315,6 +485,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <main>\n        <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"Add descriptive text here\">\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Images",
+            "url": "https://www.w3schools.com/html/html_images.asp"
+          },
+          {
+            "text": "HTML img alt Attribute",
+            "url": "https://www.w3schools.com/tags/att_img_alt.asp"
+          },
+          {
+            "text": "Accessibility Images",
+            "url": "https://www.w3schools.com/accessibility/accessibility_images.php"
+          }
+        ],
         "expectedElements": [
           "<img> with alt attribute"
         ]
@@ -330,6 +514,16 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Main Title</h1>\n    </header>\n    <main>\n        <p>Content here</p>\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Headings",
+            "url": "https://www.w3schools.com/html/html_headings.asp"
+          },
+          {
+            "text": "Accessibility Headings",
+            "url": "https://www.w3schools.com/accessibility/accessibility_headings.php"
+          }
+        ],
         "expectedElements": [
           "Proper heading hierarchy"
         ]
@@ -345,6 +539,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n    <style>\n        a:focus {\n            /* Add focus styles */\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n        <nav>\n            <a href=\"#home\">Home</a>\n            <a href=\"#about\">About</a>\n        </nav>\n    </header>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS :focus Pseudo-class",
+            "url": "https://www.w3schools.com/css/css_pseudo_classes.asp"
+          },
+          {
+            "text": "Accessibility Keyboard",
+            "url": "https://www.w3schools.com/accessibility/accessibility_keyboard.php"
+          },
+          {
+            "text": "HTML nav Tag",
+            "url": "https://www.w3schools.com/tags/tag_nav.asp"
+          }
+        ],
         "expectedElements": [
           "<nav> with links",
           "Focus styles on links"
@@ -361,6 +569,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n        <nav role=\"navigation\">\n            <!-- Add aria-label to this button and make sure it has a role -->\n            <button>☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Expand section</div>\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "ARIA Introduction",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria.php"
+          },
+          {
+            "text": "ARIA Labels",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_labels.php"
+          },
+          {
+            "text": "ARIA Roles",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_roles.php"
+          }
+        ],
         "expectedElements": [
           "aria-label attribute",
           "role attribute"
@@ -378,6 +600,20 @@
           "Click \"Verify Code\" to check your work"
         ],
         "codeTemplate": "<html lang=\"en\">\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <main>\n        <p id=\"description\">This is a description</p>\n        <div aria-describedby=\"description\" role=\"region\">Content here</div>\n        <!-- Or try: <button aria-expanded=\"false\" role=\"button\">Toggle</button> -->\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "ARIA Describedby",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_describedby.php"
+          },
+          {
+            "text": "ARIA Expanded",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_expanded.php"
+          },
+          {
+            "text": "ARIA Roles",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_roles.php"
+          }
+        ],
         "expectedElements": [
           "aria-describedby attribute",
           "aria-expanded attribute",
@@ -751,6 +987,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<p>Ceci est un paragraphe</p>\n<!-- Ajoutez des balises avec des attributs id et class ici -->",
+        "w3schoolsLinks": [
+          {
+            "text": "Attributs HTML",
+            "url": "https://www.w3schools.com/html/html_attributes.asp"
+          },
+          {
+            "text": "Attribut HTML id",
+            "url": "https://www.w3schools.com/html/html_id.asp"
+          },
+          {
+            "text": "Attribut HTML class",
+            "url": "https://www.w3schools.com/html/html_classes.asp"
+          }
+        ],
         "expectedElements": [
           "Une balise avec attribut id",
           "Une balise avec attribut class"
@@ -767,6 +1017,24 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<p>Ceci est un paragraphe</p>\n<!-- Ajoutez div avec class, span, strong et em ici -->\n<!-- Rappelez-vous : les éléments parents contiennent les enfants, mais les enfants ont besoin de leurs propres attributs -->",
+        "w3schoolsLinks": [
+          {
+            "text": "Balise HTML div",
+            "url": "https://www.w3schools.com/tags/tag_div.asp"
+          },
+          {
+            "text": "Balise HTML span",
+            "url": "https://www.w3schools.com/tags/tag_span.asp"
+          },
+          {
+            "text": "Balise HTML strong",
+            "url": "https://www.w3schools.com/tags/tag_strong.asp"
+          },
+          {
+            "text": "Balise HTML em",
+            "url": "https://www.w3schools.com/tags/tag_em.asp"
+          }
+        ],
         "expectedElements": [
           "<div> avec attribut class",
           "<span>",
@@ -784,6 +1052,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue sur ma page !</h1>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Structure HTML de Base",
+            "url": "https://www.w3schools.com/html/html_basic.asp"
+          },
+          {
+            "text": "Élément HTML head",
+            "url": "https://www.w3schools.com/html/html_head.asp"
+          },
+          {
+            "text": "Balise HTML title",
+            "url": "https://www.w3schools.com/tags/tag_title.asp"
+          }
+        ],
         "expectedElements": [
           "<html>",
           "<head>",
@@ -801,6 +1083,16 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <!-- Ajoutez votre titre et paragraphe ici -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Titres HTML",
+            "url": "https://www.w3schools.com/html/html_headings.asp"
+          },
+          {
+            "text": "Paragraphes HTML",
+            "url": "https://www.w3schools.com/html/html_paragraphs.asp"
+          }
+        ],
         "expectedElements": [
           "<h1>",
           "<p>"
@@ -817,6 +1109,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Voici quelques choses que j'aime :</p>\n    <!-- Ajoutez votre liste ici -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Listes HTML",
+            "url": "https://www.w3schools.com/html/html_lists.asp"
+          },
+          {
+            "text": "Listes Non Ordonnées HTML",
+            "url": "https://www.w3schools.com/html/html_lists_unordered.asp"
+          },
+          {
+            "text": "Listes Ordonnées HTML",
+            "url": "https://www.w3schools.com/html/html_lists_ordered.asp"
+          }
+        ],
         "expectedElements": [
           "<ul> ou <ol>",
           "<li>"
@@ -833,6 +1139,16 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Découvrez ce site cool :</p>\n    <!-- Ajoutez votre lien ici -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Liens HTML",
+            "url": "https://www.w3schools.com/html/html_links.asp"
+          },
+          {
+            "text": "Balise HTML a",
+            "url": "https://www.w3schools.com/tags/tag_a.asp"
+          }
+        ],
         "expectedElements": [
           "<a> avec attribut href"
         ]
@@ -848,6 +1164,16 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Voici une belle image :</p>\n    <!-- Ajoutez votre image ici en utilisant : <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"description\"> -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Images HTML",
+            "url": "https://www.w3schools.com/html/html_images.asp"
+          },
+          {
+            "text": "Balise HTML img",
+            "url": "https://www.w3schools.com/tags/tag_img.asp"
+          }
+        ],
         "expectedElements": [
           "<img> avec attribut alt"
         ]
@@ -863,6 +1189,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        /* Ajoutez votre CSS ici */\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Introduction CSS",
+            "url": "https://www.w3schools.com/css/css_intro.asp"
+          },
+          {
+            "text": "Syntaxe CSS",
+            "url": "https://www.w3schools.com/css/css_syntax.asp"
+          },
+          {
+            "text": "Comment Utiliser CSS",
+            "url": "https://www.w3schools.com/css/css_howto.asp"
+          }
+        ],
         "expectedElements": [
           "Balise <style>",
           "Règle CSS"
@@ -880,6 +1220,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        h1 {\n            /* Stylisez votre titre */\n        }\n        p {\n            /* Stylisez votre paragraphe */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Texte",
+            "url": "https://www.w3schools.com/css/css_text.asp"
+          },
+          {
+            "text": "CSS Polices",
+            "url": "https://www.w3schools.com/css/css_font.asp"
+          },
+          {
+            "text": "CSS Couleur",
+            "url": "https://www.w3schools.com/css/css_colors.asp"
+          }
+        ],
         "expectedElements": [
           "Règle CSS pour le texte"
         ]
@@ -895,6 +1249,16 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        body {\n            /* Ajoutez une couleur d'arrière-plan */\n        }\n        h1 {\n            /* Ajoutez une bordure */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Arrière-plans CSS",
+            "url": "https://www.w3schools.com/css/css_background.asp"
+          },
+          {
+            "text": "Bordures CSS",
+            "url": "https://www.w3schools.com/css/css_border.asp"
+          }
+        ],
         "expectedElements": [
           "background-color ou border"
         ]
@@ -910,6 +1274,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        body {\n            margin: 0;\n            padding: 20px;\n        }\n        p {\n            /* Ajoutez margin et padding */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Margin",
+            "url": "https://www.w3schools.com/css/css_margin.asp"
+          },
+          {
+            "text": "CSS Padding",
+            "url": "https://www.w3schools.com/css/css_padding.asp"
+          },
+          {
+            "text": "Modèle de Boîte CSS",
+            "url": "https://www.w3schools.com/css/css_boxmodel.asp"
+          }
+        ],
         "expectedElements": [
           "margin ou padding"
         ]
@@ -925,6 +1303,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        /* Ajoutez CSS pour un ID en utilisant # */\n        /* Ajoutez CSS pour une classe en utilisant . */\n    </style>\n</head>\n<body>\n    <div id=\"container\">\n        <p class=\"highlight\">Ceci est du texte en surbrillance</p>\n        <p>Texte normal</p>\n    </div>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Sélecteurs CSS",
+            "url": "https://www.w3schools.com/css/css_selectors.asp"
+          },
+          {
+            "text": "Sélecteur CSS ID",
+            "url": "https://www.w3schools.com/css/css_id.asp"
+          },
+          {
+            "text": "Sélecteur CSS Class",
+            "url": "https://www.w3schools.com/css/css_class.asp"
+          }
+        ],
         "expectedElements": [
           "Sélecteur ID ou class"
         ]
@@ -940,6 +1332,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <div>\n        <p>C'est ma page web accessible !</p>\n    </div>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Éléments Sémantiques HTML",
+            "url": "https://www.w3schools.com/html/html5_semantic_elements.asp"
+          },
+          {
+            "text": "Balise HTML header",
+            "url": "https://www.w3schools.com/tags/tag_header.asp"
+          },
+          {
+            "text": "Balise HTML main",
+            "url": "https://www.w3schools.com/tags/tag_main.asp"
+          }
+        ],
         "expectedElements": [
           "Attribut lang sur <html>",
           "<header>, <main>, ou <footer>"
@@ -957,6 +1363,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <main>\n        <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"Ajoutez un texte descriptif ici\">\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Images HTML",
+            "url": "https://www.w3schools.com/html/html_images.asp"
+          },
+          {
+            "text": "Attribut HTML img alt",
+            "url": "https://www.w3schools.com/tags/att_img_alt.asp"
+          },
+          {
+            "text": "Accessibilité Images",
+            "url": "https://www.w3schools.com/accessibility/accessibility_images.php"
+          }
+        ],
         "expectedElements": [
           "<img> avec attribut alt"
         ]
@@ -972,6 +1392,16 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Titre Principal</h1>\n    </header>\n    <main>\n        <p>Contenu ici</p>\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Titres HTML",
+            "url": "https://www.w3schools.com/html/html_headings.asp"
+          },
+          {
+            "text": "Accessibilité Titres",
+            "url": "https://www.w3schools.com/accessibility/accessibility_headings.php"
+          }
+        ],
         "expectedElements": [
           "Hiérarchie de titres appropriée"
         ]
@@ -987,6 +1417,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n    <style>\n        a:focus {\n            /* Ajoutez des styles de focus */\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n        <nav>\n            <a href=\"#home\">Accueil</a>\n            <a href=\"#about\">À propos</a>\n        </nav>\n    </header>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Pseudo-classe CSS :focus",
+            "url": "https://www.w3schools.com/css/css_pseudo_classes.asp"
+          },
+          {
+            "text": "Accessibilité Clavier",
+            "url": "https://www.w3schools.com/accessibility/accessibility_keyboard.php"
+          },
+          {
+            "text": "Balise HTML nav",
+            "url": "https://www.w3schools.com/tags/tag_nav.asp"
+          }
+        ],
         "expectedElements": [
           "<nav> avec liens",
           "Styles de focus sur les liens"
