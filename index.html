@@ -1340,6 +1340,16 @@
                                         aria-label={t('ui.certificateShare')}
                                     />
                                 </div>
+                                <div style={{ marginTop: '20px', marginBottom: '15px' }}>
+                                    <a
+                                        href={`mailto:?subject=${encodeURIComponent(t('ui.emailCertificateSubject'))}&body=${encodeURIComponent(t('ui.emailCertificateBody') + ' ' + window.location.href)}`}
+                                        className="btn btn-primary"
+                                        style={{ display: 'inline-block', textDecoration: 'none', padding: '12px 24px', fontSize: '16px' }}
+                                        aria-label={t('ui.emailCertificate')}
+                                    >
+                                        📧 {t('ui.emailCertificate')}
+                                    </a>
+                                </div>
                                 <p style={{ fontSize: '14px', color: '#888', marginTop: '15px', fontStyle: 'italic' }}>
                                     {t('ui.certificateShareDescription')}
                                 </p>
