@@ -1052,52 +1052,111 @@
                 }
                 
                 formatTimeout = setTimeout(() => {
+                    // Don't format if textarea doesn't have focus (user might have clicked away)
+                    if (document.activeElement !== textarea) {
+                        return;
+                    }
+                    
                     const cursorPos = textarea.selectionStart;
+                    const selectionEnd = textarea.selectionEnd;
+                    
+                    // Get text before cursor (last 50 chars for better matching)
+                    const textBeforeCursor = code.substring(Math.max(0, cursorPos - 50), cursorPos);
+                    const textAfterCursor = code.substring(selectionEnd, Math.min(code.length, selectionEnd + 10));
+                    
                     const formatted = autoFormatCode(code);
                     
                     // Only update if formatting changed something
                     if (formatted !== code) {
-                        // Calculate new cursor position
-                        const linesBefore = code.substring(0, cursorPos).split('\n');
-                        const currentLineIndex = linesBefore.length - 1;
-                        const currentLine = linesBefore[currentLineIndex] || '';
-                        const cursorInLine = currentLine.length;
-                        
-                        const formattedLines = formatted.split('\n');
-                        const newCurrentLine = formattedLines[currentLineIndex] || '';
-                        
-                        // Try to maintain cursor position relative to content
-                        const oldTrimmed = currentLine.trim();
-                        const newTrimmed = newCurrentLine.trim();
-                        
                         let newCursorPos = cursorPos;
-                        if (oldTrimmed === newTrimmed) {
-                            // Content is the same, just indentation changed
-                            const indentDiff = newCurrentLine.length - currentLine.length;
-                            newCursorPos = cursorPos + indentDiff;
-                        } else {
-                            // Content changed, try to find similar position
-                            const beforeCursor = currentLine.substring(0, cursorInLine);
-                            const afterCursor = currentLine.substring(cursorInLine);
-                            const beforeTrimmed = beforeCursor.trim();
+                        
+                        // Strategy: Find the text before cursor in the formatted code
+                        // Use a longer unique string to avoid false matches
+                        const searchLength = Math.min(30, textBeforeCursor.length);
+                        const searchText = textBeforeCursor.substring(textBeforeCursor.length - searchLength);
+                        
+                        // Find all occurrences of this text
+                        let searchIndex = -1;
+                        let lastMatch = -1;
+                        let matchCount = 0;
+                        
+                        // Count matches to see if it's unique
+                        while ((searchIndex = formatted.indexOf(searchText, lastMatch + 1)) !== -1) {
+                            matchCount++;
+                            lastMatch = searchIndex;
+                        }
+                        
+                        if (matchCount === 1 && lastMatch !== -1) {
+                            // Unique match found - cursor should be right after it
+                            newCursorPos = lastMatch + searchText.length;
+                        } else if (matchCount > 1) {
+                            // Multiple matches - use the one closest to original position
+                            // Find the match that's closest to the original cursor position
+                            let closestMatch = -1;
+                            let closestDistance = Infinity;
                             
-                            // Find position in new line
-                            const newBeforeIndex = newCurrentLine.indexOf(beforeTrimmed);
-                            if (newBeforeIndex !== -1) {
-                                newCursorPos = newBeforeIndex + beforeTrimmed.length;
-                            } else {
-                                // Fallback: maintain relative position
-                                newCursorPos = Math.min(cursorPos, formatted.length);
+                            searchIndex = -1;
+                            while ((searchIndex = formatted.indexOf(searchText, searchIndex + 1)) !== -1) {
+                                const distance = Math.abs((searchIndex + searchText.length) - cursorPos);
+                                if (distance < closestDistance) {
+                                    closestDistance = distance;
+                                    closestMatch = searchIndex + searchText.length;
+                                }
+                            }
+                            
+                            if (closestMatch !== -1) {
+                                newCursorPos = closestMatch;
+                            }
+                        } else {
+                            // No match found - calculate based on line/column
+                            const linesBefore = code.substring(0, cursorPos).split('\n');
+                            const currentLineIndex = linesBefore.length - 1;
+                            const currentLine = linesBefore[currentLineIndex] || '';
+                            const cursorInLine = currentLine.length;
+                            
+                            const formattedLines = formatted.split('\n');
+                            if (currentLineIndex < formattedLines.length) {
+                                const newCurrentLine = formattedLines[currentLineIndex];
+                                const oldTrimmed = currentLine.trim();
+                                const newTrimmed = newCurrentLine.trim();
+                                
+                                if (oldTrimmed === newTrimmed) {
+                                    // Same content, just indentation changed
+                                    const oldIndent = currentLine.length - currentLine.trimStart().length;
+                                    const newIndent = newCurrentLine.length - newCurrentLine.trimStart().length;
+                                    const contentPos = cursorInLine - oldIndent;
+                                    const newLinePos = newIndent + contentPos;
+                                    
+                                    // Sum positions of all previous lines
+                                    let pos = 0;
+                                    for (let i = 0; i < currentLineIndex; i++) {
+                                        pos += formattedLines[i].length + 1; // +1 for newline
+                                    }
+                                    newCursorPos = pos + newLinePos;
+                                } else {
+                                    // Content changed - try to find by matching after cursor text
+                                    if (textAfterCursor.trim().length > 0) {
+                                        const afterMatch = formatted.indexOf(textAfterCursor.trim(), cursorPos);
+                                        if (afterMatch !== -1) {
+                                            newCursorPos = afterMatch;
+                                        }
+                                    }
+                                }
                             }
                         }
+                        
+                        // Ensure cursor position is valid
+                        newCursorPos = Math.max(0, Math.min(newCursorPos, formatted.length));
                         
                         // Update code
                         setCode(formatted);
                         
-                        // Restore cursor position
+                        // Restore cursor position after React updates
                         setTimeout(() => {
-                            textarea.setSelectionRange(newCursorPos, newCursorPos);
-                        }, 0);
+                            if (textarea && textarea === document.activeElement && textarea.selectionStart !== undefined) {
+                                textarea.setSelectionRange(newCursorPos, newCursorPos);
+                            }
+                        }, 10);
                     }
                 }, 500); // Wait 500ms after user stops typing
             };
