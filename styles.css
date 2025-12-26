@@ -373,6 +373,47 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+.certificate-header {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 10;
+}
+
+.certificate-language-selector {
+    display: flex;
+    align-items: center;
+}
+
+.certificate-language-select {
+    padding: 8px 14px;
+    font-size: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.certificate-language-select:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.certificate-language-select:focus {
+    outline: 3px solid #3498db;
+    outline-offset: 2px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.certificate-language-select option {
+    background: #2c3e50;
+    color: white;
 }
 
 .certificate-content {
@@ -419,6 +460,28 @@ body {
     color: #555;
     line-height: 1.8;
     margin-top: 30px;
+}
+
+.certificate-share {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid #e0e0e0;
+}
+
+.certificate-share input {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-family: monospace;
+}
+
+.certificate-share input:focus {
+    outline: 3px solid #3498db;
+    outline-offset: 2px;
+    border-color: #3498db;
 }
 
 .sr-only {

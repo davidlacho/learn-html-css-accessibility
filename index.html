@@ -1278,7 +1278,7 @@
 
             // Show certificate when all lessons are complete
             if (allLessonsComplete && hasStarted && studentName) {
-                const completionDate = new Date().toLocaleDateString('en-US', { 
+                const completionDate = new Date().toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-US', { 
                     year: 'numeric', 
                     month: 'long', 
                     day: 'numeric' 
@@ -1286,6 +1286,21 @@
                 
                 return (
                     <div className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
+                        <div className="certificate-header">
+                            <div className="certificate-language-selector">
+                                <label htmlFor="certificate-language-select" className="sr-only">{t('ui.selectLanguage')}</label>
+                                <select 
+                                    id="certificate-language-select"
+                                    value={language} 
+                                    onChange={(e) => setLanguage(e.target.value)}
+                                    aria-label={t('ui.selectLanguage')}
+                                    className="certificate-language-select"
+                                >
+                                    <option value="en">English</option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
+                        </div>
                         <div className="certificate-content">
                             <h1>{t('ui.certificateTitle')}</h1>
                             <h2>{t('ui.certificateSubtitle')}</h2>
@@ -1302,15 +1317,33 @@
                                 {t('ui.certificateCovered')}
                             </p>
                             <ul style={{ textAlign: 'left', display: 'inline-block', marginTop: '20px', fontSize: '16px', lineHeight: '2' }}>
-                                <li><TextWithTooltips text="HTML" /> Fundamentals and Document Structure</li>
-                                <li><TextWithTooltips text="CSS" /> Styling and Layout</li>
-                                <li><TextWithTooltips text="Accessible" /> Web Design Principles</li>
-                                <li><TextWithTooltips text="Semantic HTML" /> and <TextWithTooltips text="Keyboard Navigation" /></li>
+                                <li><TextWithTooltips text={t('ui.certificateItem1')} /></li>
+                                <li><TextWithTooltips text={t('ui.certificateItem2')} /></li>
+                                <li><TextWithTooltips text={t('ui.certificateItem3')} /></li>
+                                <li><TextWithTooltips text={t('ui.certificateItem4')} /></li>
                             </ul>
                             <p className="date">
                                 {t('ui.completedOn')} {completionDate}
                             </p>
                             <div style={{ marginTop: '40px', fontSize: '48px' }} role="img" aria-label={t('ui.congratulations')}>🎉</div>
+                            <div className="certificate-share" style={{ marginTop: '50px', paddingTop: '30px', borderTop: '2px solid #e0e0e0' }}>
+                                <p style={{ fontSize: '16px', color: '#555', marginBottom: '15px' }}>
+                                    <strong>{t('ui.certificateShare')}</strong>
+                                </p>
+                                <div className="url-share">
+                                    <input 
+                                        type="text" 
+                                        readOnly 
+                                        value={window.location.href}
+                                        onClick={(e) => e.target.select()}
+                                        style={{ width: '100%', maxWidth: '600px', padding: '10px', fontSize: '14px', border: '2px solid #ddd', borderRadius: '5px' }}
+                                        aria-label={t('ui.certificateShare')}
+                                    />
+                                </div>
+                                <p style={{ fontSize: '14px', color: '#888', marginTop: '15px', fontStyle: 'italic' }}>
+                                    {t('ui.certificateShareDescription')}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 );
@@ -1358,7 +1391,11 @@
                                             required
                                             autoFocus
                                             aria-label={t('ui.enterName')}
+                                            aria-describedby="name-certificate-note"
                                         />
+                                        <p id="name-certificate-note" style={{ fontSize: '13px', color: '#666', marginTop: '8px', marginBottom: '15px', fontStyle: 'italic' }}>
+                                            {t('ui.nameCertificateNote')}
+                                        </p>
                                         <button type="submit" className="btn btn-primary" aria-label={t('ui.startLearning')}>{t('ui.startLearning')}</button>
                                     </form>
                                 </div>
