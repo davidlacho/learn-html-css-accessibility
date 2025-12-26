@@ -901,6 +901,12 @@
         "title": "Plus de Fonctionnalités d'Accessibilité",
         "description": "Il y a beaucoup plus de fonctionnalités d'accessibilité ! Utilisez l'attribut lang sur <html> pour spécifier la langue de la page. Ajoutez aria-describedby pour connecter les descriptions aux éléments. Utilisez des étiquettes de formulaire appropriées avec les balises <label>. Ces petits détails font une grande différence pour les utilisateurs handicapés.",
         "whyImportant": "L'accessibilité concerne l'attention aux détails. Chaque petite amélioration aide plus de personnes à utiliser votre site web. Ces fonctionnalités sont nécessaires pour que les sites web soient vraiment accessibles à tous.",
+        "whatToDo": [
+          "Ajoutez aria-describedby=\"id\" pour connecter un élément à sa description",
+          "Ou ajoutez aria-expanded=\"true\" ou \"false\" pour indiquer l'état d'un élément pliable",
+          "Ajoutez role=\"nom\" pour décrire le rôle d'un élément",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html lang=\"fr\">\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <main>\n        <form>\n            <!-- Ajoutez une balise label ici connectée à l'input en utilisant l'attribut for -->\n            <input type=\"text\" id=\"username\" name=\"username\">\n        </form>\n        <p id=\"description\">Ceci est une description</p>\n        <div aria-describedby=\"description\">Contenu ici</div>\n    </main>\n</body>\n</html>",
         "expectedElements": [
           "Attribut aria-describedby",
