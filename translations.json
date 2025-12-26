@@ -1447,6 +1447,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n        <nav role=\"navigation\">\n            <!-- Ajoutez aria-label à ce bouton et assurez-vous qu'il a un role -->\n            <button>☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Développer la section</div>\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Introduction ARIA",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria.php"
+          },
+          {
+            "text": "Étiquettes ARIA",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_labels.php"
+          },
+          {
+            "text": "Rôles ARIA",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_roles.php"
+          }
+        ],
         "expectedElements": [
           "Attribut aria-label",
           "Attribut role"
@@ -1464,6 +1478,20 @@
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
         "codeTemplate": "<html lang=\"fr\">\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <main>\n        <p id=\"description\">Ceci est une description</p>\n        <div aria-describedby=\"description\" role=\"region\">Contenu ici</div>\n        <!-- Ou essayez : <button aria-expanded=\"false\" role=\"button\">Basculer</button> -->\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "ARIA Describedby",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_describedby.php"
+          },
+          {
+            "text": "ARIA Expanded",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_expanded.php"
+          },
+          {
+            "text": "Rôles ARIA",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_roles.php"
+          }
+        ],
         "expectedElements": [
           "Attribut aria-describedby",
           "Attribut aria-expanded",
