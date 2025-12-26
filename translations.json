@@ -103,6 +103,11 @@
         "title": "Understanding HTML Attributes",
         "description": "Attributes provide extra information about tags. They go inside the opening tag like this: <tag attribute=\"value\">. For example, a link tag uses href=\"url\" to specify where the link goes. Attributes always have a name, an equals sign, and a value in quotes. Two very important attributes are id and class: id gives an element a unique identifier (only one element per page can have a specific id), while class groups multiple elements together (many elements can share the same class).",
         "whyImportant": "Attributes make tags more powerful. They let you customize how tags behave - like setting colors, sizes, links, and more. Almost every HTML tag can use attributes. The id and class attributes are especially important because they let you target specific elements with CSS and JavaScript. When you apply an id or class to a parent element, it doesn't automatically apply to its children - children need their own attributes unless you use CSS selectors to target them based on their parent.",
+        "whatToDo": [
+          "Add a tag with an id attribute, like <div id=\"myDiv\">",
+          "Add another tag with a class attribute, like <p class=\"text\">",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<p>This is a paragraph</p>\n<!-- Add tags with id and class attributes here -->",
         "expectedElements": [
           "A tag with id attribute",
@@ -113,6 +118,12 @@
         "title": "Common HTML Tags: div, span, and More",
         "description": "The <div> tag is a container that groups content together. It doesn't have any visual meaning by itself, but it helps organize your page. The <span> tag is similar but for inline content. You'll also use <strong> for bold text and <em> for italic text. These are some of the most common tags you'll use! HTML elements form a hierarchy - parent elements contain child elements. When you add an id or class to a parent element (like a <div>), it doesn't automatically apply to its children. Each element needs its own attributes. However, you can use CSS to style children based on their parent - for example, \".parent .child\" targets elements with class \"child\" inside elements with class \"parent\".",
         "whyImportant": "Understanding common tags like <div> and <span> helps you structure your content. They're building blocks for organizing and styling your webpage. Semantic tags like <strong> and <em> also help with accessibility. Understanding HTML hierarchy is crucial - parent-child relationships determine how CSS selectors work and how you organize your code. When choosing ids and classes, use descriptive names that explain the element's purpose (like \"header\" or \"main-content\" instead of \"div1\" or \"box\").",
+        "whatToDo": [
+          "Add a <div> tag with a class attribute",
+          "Add a <span> tag with some content",
+          "Add a <strong> or <em> tag to highlight some text",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<p>This is a paragraph</p>\n<!-- Add div with class, span, strong, and em tags here -->\n<!-- Remember: parent elements contain children, but children need their own attributes -->",
         "expectedElements": [
           "<div> with class attribute",
@@ -124,6 +135,12 @@
         "title": "HTML Document Structure",
         "description": "Every HTML webpage needs a basic structure. The <html> tag wraps everything. Inside it, <head> contains information about the page (like the title), and <body> contains the visible content. The <title> tag goes in the head and sets the browser tab title.",
         "whyImportant": "This structure tells browsers \"this is an HTML document\" and organizes your page into visible content (body) and metadata (head). Without this structure, browsers might not display your page correctly.",
+        "whatToDo": [
+          "Make sure you have the <html> tag that wraps everything",
+          "Add a <head> section with a <title> tag inside",
+          "Add a <body> section for visible content",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome to my page!</h1>\n</body>\n</html>",
         "expectedElements": [
           "<html>",
@@ -136,6 +153,11 @@
         "title": "Adding Content with Headings and Paragraphs",
         "description": "Now let's add actual content to your webpage! Headings (<h1> to <h6>) help organize your content, and paragraphs (<p>) contain your text. We'll add a main heading and a paragraph inside the body.",
         "whyImportant": "Headings create a hierarchy that helps both users and search engines understand your content. Paragraphs make your text readable and well-organized.",
+        "whatToDo": [
+          "Add an <h1> tag with a main heading",
+          "Add a <p> tag with paragraph text",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <!-- Add your heading and paragraph here -->\n</body>\n</html>",
         "expectedElements": [
           "<h1>",
@@ -146,6 +168,12 @@
         "title": "Creating Lists",
         "description": "Lists are great for organizing information. HTML has two types: ordered lists (<ol>) with numbers, and unordered lists (<ul>) with bullets. Each item uses <li> (list item).",
         "whyImportant": "Lists make information scannable and easy to digest. They're essential for navigation menus, feature lists, and step-by-step instructions.",
+        "whatToDo": [
+          "Add a <ul> (unordered list) or <ol> (ordered list) tag",
+          "Add <li> elements inside your list",
+          "Each <li> represents one item in the list",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Here are some things I like:</p>\n    <!-- Add your list here -->\n</body>\n</html>",
         "expectedElements": [
           "<ul> or <ol>",
@@ -156,6 +184,12 @@
         "title": "Adding Links",
         "description": "Links (<a>) connect your webpage to other pages or websites. The href attribute tells the browser where to go when clicked. Links are what make the web \"web-like\"!",
         "whyImportant": "Links are the foundation of navigation on the web. They allow users to move between pages and discover new content.",
+        "whatToDo": [
+          "Add an <a> tag to create a link",
+          "Add the href=\"url\" attribute to specify the destination",
+          "Add text between <a> and </a> that will be clickable",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Check out this cool website:</p>\n    <!-- Add your link here -->\n</body>\n</html>",
         "expectedElements": [
           "<a> with href attribute"
@@ -165,6 +199,12 @@
         "title": "Adding Images",
         "description": "Images (<img>) make webpages visually appealing. The src attribute points to the image file, and alt provides a text description for accessibility.",
         "whyImportant": "Images engage users and convey information quickly. The alt attribute is crucial for screen readers and when images fail to load.",
+        "whatToDo": [
+          "Add an <img> tag to display an image",
+          "Add the src=\"url\" attribute to specify the image location",
+          "Add the alt=\"description\" attribute to describe the image",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Here's a beautiful image:</p>\n    <!-- Add your image here using: <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"description\"> -->\n</body>\n</html>",
         "expectedElements": [
           "<img> with alt attribute"
@@ -174,6 +214,12 @@
         "title": "Introduction to CSS",
         "description": "CSS (Cascading Style Sheets) makes your webpage beautiful! It controls colors, fonts, spacing, and layout. We'll add a <style> tag in the <head> to style our HTML. For example, you could use: body { color: blue; } to make all text blue, or h1 { font-size: 32px; } to make headings larger, or p { background-color: yellow; } to add a yellow background to paragraphs.",
         "whyImportant": "CSS separates content (HTML) from presentation (styling). This makes websites maintainable and allows for consistent design across pages.",
+        "whatToDo": [
+          "Add a <style> tag in the <head> section",
+          "Write a CSS rule, for example: body { color: blue; }",
+          "Don't forget the curly braces { } and semicolon ;",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        /* Add your CSS here */\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
         "expectedElements": [
           "<style> tag",
@@ -184,6 +230,13 @@
         "title": "Styling Text",
         "description": "Let's make text more readable and attractive! You can change font size, color, and weight. We'll style the <h1> and <p> elements.",
         "whyImportant": "Well-styled text improves readability and user experience. It helps guide users' attention to important information.",
+        "whatToDo": [
+          "Add CSS properties to style the text",
+          "Use color: to change the text color",
+          "Use font-size: to change the size",
+          "Use font-weight: to make text bold",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        h1 {\n            /* Style your heading */\n        }\n        p {\n            /* Style your paragraph */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
         "expectedElements": [
           "CSS rule for text"
@@ -193,6 +246,12 @@
         "title": "Adding Backgrounds and Borders",
         "description": "Backgrounds and borders add visual interest and help separate content. You can set background colors and add borders to elements.",
         "whyImportant": "Backgrounds and borders create visual hierarchy and make your content stand out. They help organize information on the page.",
+        "whatToDo": [
+          "Add background-color: to set a background color",
+          "Or add border: to create a border around an element",
+          "Example: border: 2px solid black;",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        body {\n            /* Add background color */\n        }\n        h1 {\n            /* Add border */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
         "expectedElements": [
           "background-color or border"
@@ -202,6 +261,12 @@
         "title": "Spacing with Margin and Padding",
         "description": "Margin creates space outside an element, while padding creates space inside. These are essential for creating readable, well-spaced layouts.",
         "whyImportant": "Proper spacing makes content easier to read and prevents elements from feeling cramped. It's a key principle of good design.",
+        "whatToDo": [
+          "Add margin: to create space outside an element",
+          "Or add padding: to create space inside",
+          "Example: margin: 20px; or padding: 10px;",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        body {\n            margin: 0;\n            padding: 20px;\n        }\n        p {\n            /* Add margin and padding */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
         "expectedElements": [
           "margin or padding"
@@ -211,6 +276,12 @@
         "title": "CSS Selectors: IDs and Classes",
         "description": "IDs and classes let you target specific elements with CSS. An ID is unique (only one per page) and uses # in CSS. A class can be used multiple times and uses . in CSS. You add id=\"name\" or class=\"name\" to HTML tags, then style them with #name or .name in CSS.",
         "whyImportant": "IDs and classes are essential for styling specific elements. They let you create reusable styles and organize your CSS. Classes are great for styling multiple elements the same way, while IDs are perfect for unique elements.",
+        "whatToDo": [
+          "Use # to target an ID, for example: #container { }",
+          "Use . to target a class, for example: .highlight { }",
+          "Add CSS properties inside the curly braces",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        /* Add CSS for an ID using # */\n        /* Add CSS for a class using . */\n    </style>\n</head>\n<body>\n    <div id=\"container\">\n        <p class=\"highlight\">This is highlighted text</p>\n        <p>Regular text</p>\n    </div>\n</body>\n</html>",
         "expectedElements": [
           "ID or class selector"
@@ -220,6 +291,12 @@
         "title": "Semantic HTML",
         "description": "Semantic HTML uses meaningful tags like <header>, <nav>, <main>, <article>, and <footer> instead of just <div>. These tags help screen readers understand your page structure.",
         "whyImportant": "Semantic HTML makes your website accessible to people using assistive technologies. It also helps search engines understand your content better.",
+        "whatToDo": [
+          "Add the lang=\"en\" attribute to the <html> tag",
+          "Replace <div> tags with semantic tags like <header>, <main>, or <footer>",
+          "Use these tags to structure your page meaningfully",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <div>\n        <p>This is my accessible webpage!</p>\n    </div>\n</body>\n</html>",
         "expectedElements": [
           "lang attribute on <html>",
@@ -230,6 +307,13 @@
         "title": "Alt Text for Images",
         "description": "We already added alt text to images, but let's make sure it's descriptive! Good alt text describes what the image shows, not just \"image\" or \"picture\".",
         "whyImportant": "Descriptive alt text allows screen reader users to understand images. It also displays when images fail to load, helping all users.",
+        "whatToDo": [
+          "Find the <img> tag in your code",
+          "Make sure it has an alt attribute",
+          "Make the alt text descriptive (at least 10 characters)",
+          "Describe what the image shows, not just \"image\"",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <main>\n        <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"Add descriptive text here\">\n    </main>\n</body>\n</html>",
         "expectedElements": [
           "<img> with alt attribute"
@@ -239,6 +323,12 @@
         "title": "Proper Heading Hierarchy",
         "description": "Headings should follow a logical order: <h1> for the main title, <h2> for major sections, <h3> for subsections, etc. Never skip levels (don't go from <h1> to <h3>).",
         "whyImportant": "Screen readers use headings to navigate. A proper hierarchy helps users understand the page structure and jump to sections they care about.",
+        "whatToDo": [
+          "Make sure you have an <h1> for the main title",
+          "Add an <h2> for a major section",
+          "The <h2> should come after the <h1> (don't skip levels)",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Main Title</h1>\n    </header>\n    <main>\n        <p>Content here</p>\n    </main>\n</body>\n</html>",
         "expectedElements": [
           "Proper heading hierarchy"
@@ -248,6 +338,12 @@
         "title": "Keyboard Navigation and Focus",
         "description": "All interactive elements (links, buttons) should be keyboard accessible. Add :focus styles so users can see which element has focus when navigating with Tab.",
         "whyImportant": "Many users navigate websites using only the keyboard. Visible focus indicators are essential for these users to know where they are on the page.",
+        "whatToDo": [
+          "Make sure you have a <nav> tag with <a> links",
+          "Add a :focus style for the links, for example: a:focus { outline: 3px solid blue; }",
+          "Test with the Tab key to see the focus",
+          "Click \"Verify Code\" to check your work"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n    <style>\n        a:focus {\n            /* Add focus styles */\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n        <nav>\n            <a href=\"#home\">Home</a>\n            <a href=\"#about\">About</a>\n        </nav>\n    </header>\n</body>\n</html>",
         "expectedElements": [
           "<nav> with links",
