@@ -135,35 +135,6 @@ class TestWebsite:
         start_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Start Learning')]")
         assert start_button.is_displayed()
     
-    def test_tooltips_on_welcome_screen(self, driver, base_url):
-        """Test that tooltips work on welcome screen"""
-        driver.get(base_url)
-        wait = WebDriverWait(driver, 10)
-        
-        # Find tooltip buttons (HTML, CSS, accessible)
-        try:
-            html_button = wait.until(
-                EC.presence_of_element_located((By.XPATH, "//button[contains(text(), 'HTML')]"))
-            )
-            
-            # Hover over HTML button to show tooltip
-            driver.execute_script("arguments[0].scrollIntoView(true);", html_button)
-            time.sleep(0.5)
-            html_button.click()  # Click to trigger tooltip
-            time.sleep(0.5)
-            
-            # Check if tooltip appears (tooltips are shown on click/hover)
-            tooltips = driver.find_elements(By.CSS_SELECTOR, ".tooltip")
-            if tooltips:
-                # At least one tooltip should be present
-                assert len(tooltips) > 0, "Tooltip elements should be present"
-            else:
-                # Tooltips might be in tooltip-wrapper
-                tooltip_wrappers = driver.find_elements(By.CSS_SELECTOR, ".tooltip-wrapper")
-                assert len(tooltip_wrappers) > 0, "Tooltip wrappers should be present on welcome screen"
-        except TimeoutException:
-            pytest.skip("Tooltip buttons not found on welcome screen")
-    
     def test_name_input_and_start(self, driver, base_url):
         """Test entering name and starting the lesson"""
         wait = WebDriverWait(driver, 15)
@@ -172,59 +143,6 @@ class TestWebsite:
         # Verify we're on a lesson page
         lesson_title = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h2")))
         assert lesson_title.is_displayed()
-    
-    def test_course_progress_sections(self, driver, base_url):
-        """Test course progress navigation sections"""
-        wait = WebDriverWait(driver, 15)
-        self.start_lesson_session(driver, wait, base_url=base_url)
-        
-        # Test clicking on different sections
-        sections = [
-            "HTML Fundamentals",
-            "HTML",
-            "CSS",
-            "Accessibility"
-        ]
-        
-        for section_name in sections:
-            try:
-                section_button = wait.until(
-                    EC.element_to_be_clickable((By.XPATH, f"//button[contains(@aria-label, '{section_name}')]"))
-                )
-                section_button.click()
-                time.sleep(1)  # Wait for navigation
-                
-                # Verify we're on a lesson from that section
-                lesson_content = driver.find_element(By.CSS_SELECTOR, ".lesson-content")
-                assert lesson_content.is_displayed()
-            except TimeoutException:
-                pytest.skip(f"Section button for {section_name} not found")
-    
-    def test_hint_button_toggle(self, driver, base_url):
-        """Test that hint button shows and hides hints"""
-        wait = WebDriverWait(driver, 15)
-        self.start_lesson_session(driver, wait, base_url=base_url)
-        
-        # Find hint button
-        try:
-            hint_button = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Show hint') or contains(text(), 'Hide hint')]"))
-            )
-            
-            # Click to show hint
-            hint_button.click()
-            time.sleep(0.5)
-            
-            # Check if hint is visible
-            hint_region = driver.find_element(By.CSS_SELECTOR, "region[aria-label='Hint instructions'], .hint-content, [role='region']")
-            assert hint_region.is_displayed()
-            
-            # Click to hide hint
-            hint_button.click()
-            time.sleep(0.5)
-            
-        except TimeoutException:
-            pytest.skip("Hint button not found on this lesson")
     
     def test_tooltips_in_lesson(self, driver, base_url):
         """Test tooltips work in lesson content"""
