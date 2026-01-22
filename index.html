@@ -73,7 +73,14 @@
 
         // Get translated glossary definition
         function getTranslatedGlossary(term) {
-            if (!translationsLoaded) return glossary[term] || glossary[term.toLowerCase()];
+            if (!translationsLoaded) {
+                // Fallback to English glossary in translations if available
+                const enGlossary = translations.en?.glossary;
+                if (enGlossary && typeof enGlossary === 'object') {
+                    return enGlossary[term] || enGlossary[term.toLowerCase()];
+                }
+                return null;
+            }
             const lang = window.currentLanguage || 'en';
             
             // Try to get from translated glossary
@@ -98,8 +105,7 @@
                 }
             }
             
-            // Final fallback to original glossary object
-            return glossary[term] || glossary[term.toLowerCase()];
+            return null;
         }
 
         // Get translated lesson data
@@ -349,190 +355,18 @@
 
 
         // Glossary of key terms with definitions
-        const glossary = {
-            // HTML Terms
-            'HTML': 'HyperText Markup Language - the standard language for creating webpages. It structures content using tags.',
-            'tags': 'HTML tags are elements that mark up content. They come in pairs: opening tag <tag> and closing tag </tag>.',
-            'element': 'An HTML element consists of an opening tag, content, and closing tag. Examples: <p>text</p> is a paragraph element.',
-            '<html>': 'The root element that wraps all HTML content on a webpage.',
-            '<head>': 'Contains metadata about the document, like title and styles, not visible on the page.',
-            '<body>': 'Contains all visible content that appears on the webpage.',
-            '<title>': 'Sets the text shown in the browser tab or window title.',
-            '<h1>': 'The main heading (largest). Use only one per page for the main title.',
-            '<h2>': 'A section heading, smaller than h1. Use for major sections.',
-            '<h3>': 'A subsection heading, smaller than h2. Use for subsections.',
-            '<h4>': 'A smaller heading, used for sub-subsections.',
-            '<h5>': 'An even smaller heading level.',
-            '<h6>': 'The smallest heading level.',
-            'heading': 'Headings (h1-h6) create a hierarchy to organize content. Screen readers use them for navigation.',
-            '<p>': 'Paragraph tag for blocks of text content.',
-            '<a>': 'Anchor tag creates clickable links to other pages or websites.',
-            '<img>': 'Image tag displays pictures. Requires src (image location) and alt (description) attributes.',
-            '<ul>': 'Unordered list creates a bulleted list of items.',
-            '<ol>': 'Ordered list creates a numbered list of items.',
-            '<li>': 'List item tag used inside <ul> or <ol> for each list entry.',
-            '<header>': 'Semantic tag for the top section of a page, typically containing logo and navigation.',
-            '<nav>': 'Semantic tag for navigation links.',
-            '<main>': 'Semantic tag for the main content of the page (only one per page).',
-            '<article>': 'Semantic tag for standalone content like blog posts or news articles.',
-            '<footer>': 'Semantic tag for the bottom section, often containing copyright and links.',
-            '<div>': 'Generic container element that groups content together. Has no visual meaning by itself but helps organize and style content. Use semantic tags like <header> or <main> when possible.',
-            '<span>': 'Inline container element used to group inline content for styling. Similar to <div> but for inline elements.',
-            '<strong>': 'Tag that makes text bold and indicates importance. Screen readers emphasize it.',
-            '<em>': 'Tag that makes text italic and indicates emphasis. Screen readers stress it.',
-            'opening tag': 'The first tag that starts an element, like <p>.',
-            'closing tag': 'The tag that ends an element, with a forward slash, like </p>.',
-            'angle brackets': 'The < and > symbols used to enclose HTML tags, like <p> and </p>.',
-            'forward slash': 'The / symbol used in closing tags, like </p> or self-closing tags like <img />.',
-            'attributes': 'Extra information added to opening tags, like href="url" or alt="description".',
-            'href': 'Attribute used in <a> tags to specify the link destination URL.',
-            'src': 'Attribute used in <img> tags to specify the image file location.',
-            'alt': 'Attribute in <img> tags providing text description for screen readers and when images fail to load.',
-            'id': 'HTML attribute that gives an element a unique identifier. Only one element per page can have a specific ID. Used with # in CSS.',
-            'class': 'HTML attribute that groups elements together. Multiple elements can share the same class. Used with . in CSS for styling.',
-            'parent element': 'An HTML element that contains other elements (children). For example, <div> is a parent if it contains <p> tags inside it.',
-            'child element': 'An HTML element that is inside another element (its parent). For example, <p> is a child if it\'s inside a <div> tag.',
-            'hierarchy': 'The structure of parent-child relationships in HTML. Elements can contain other elements, creating a tree-like structure.',
-            'inline': 'Elements that flow with text and don\'t create line breaks, like <span> or <a>. Opposite of block elements.',
-            'block': 'Elements that create a new line and take full width, like <div> or <p>. Opposite of inline elements.',
-            'JavaScript': 'A programming language that makes webpages interactive. Can be used with HTML and CSS to add dynamic behavior.',
-            'ordered list': 'A list with numbers (1, 2, 3...), created with <ol> tag. Each item uses <li> tag.',
-            'unordered list': 'A list with bullets, created with <ul> tag. Each item uses <li> tag.',
-            'list item': 'An individual item in a list, created with <li> tag. Used inside <ul> or <ol> tags.',
-            'anchor': 'Another name for the <a> tag, which creates clickable links. The "a" stands for anchor.',
-            'form': 'An HTML element (<form>) that collects user input, like text fields, checkboxes, or submit buttons.',
-            'input': 'An HTML element (<input>) used inside forms to collect different types of user data, like text, email, or passwords.',
-            'display': 'CSS property that controls how an element is displayed, like block, inline, or flex. Determines layout behavior.',
-            'container': 'An element that groups or wraps other elements together, like <div> or <section>. Used for organization and styling.',
-            'reusable': 'Code or styles that can be used multiple times. Classes are reusable - many elements can share the same class.',
-            'unique': 'Something that appears only once. IDs are unique - only one element per page can have a specific ID.',
-            'identifier': 'A name that identifies something. In HTML, id and class are identifiers that help you target specific elements.',
-            'semantic HTML': 'Using meaningful tags like <header> and <main> instead of generic <div> tags. Helps screen readers and search engines understand page structure.',
-            'content': 'The text, images, or other material inside HTML tags that appears on the webpage.',
-            'webpage': 'A single page on the World Wide Web, created with HTML and displayed in a browser.',
-            'browser': 'Software that displays webpages, like Chrome, Firefox, Safari, or Edge. It reads HTML and CSS to show the page.',
-            'browser tab': 'A tab in the browser window that displays a webpage. Each tab shows the page title in the tab label.',
-            'metadata': 'Information about a webpage that isn\'t visible on the page itself, like the title, description, or styles. Goes in the <head> section.',
-            'search engines': 'Services like Google that index webpages. They use semantic HTML to understand page content and structure.',
-            'navigation': 'Links and menus that help users move around a website. Usually created with <nav> and <a> tags.',
-            'URL': 'Uniform Resource Locator - the web address that identifies a webpage, like https://example.com.',
-            'web': 'Short for World Wide Web - the system of interconnected webpages accessible via the internet.',
-            'interactive elements': 'HTML elements that users can interact with, like links (<a>), buttons, and form inputs. Must be keyboard accessible.',
-            'buttons': 'Clickable elements that perform actions. Can be created with <button> tag or styled <a> tags.',
-            
-            // CSS Terms
-            'CSS': 'Cascading Style Sheets - the language that styles HTML, controlling colors, fonts, spacing, and layout.',
-            'styling': 'The process of making HTML look good using CSS - adding colors, fonts, spacing, and visual design.',
-            '<style>': 'HTML tag that contains CSS code for styling the page.',
-            'color': 'CSS property that sets the text color, like color: blue;',
-            'font-size': 'CSS property that sets the size of text, like font-size: 16px;',
-            'font-weight': 'CSS property that sets how bold text appears, like font-weight: bold; or font-weight: 400;',
-            'background-color': 'CSS property that sets the background color of an element.',
-            'border': 'CSS property that adds a border around an element, like border: 2px solid black;',
-            'margin': 'CSS property that creates space outside an element (between elements).',
-            'padding': 'CSS property that creates space inside an element (between content and border).',
-            'spacing': 'The gaps and distances between elements, controlled by margin and padding in CSS.',
-            ':focus': 'CSS pseudo-class that styles elements when they have keyboard focus (when user tabs to them).',
-            'pseudo-class': 'A CSS feature that styles elements in special states, like :focus (when focused) or :hover (when mouse is over).',
-            'selector': 'The part of a CSS rule that targets which HTML elements to style, like h1 or p.',
-            'ID selector': 'CSS selector using # to target an element by its id attribute, like #myDiv { }. IDs are unique.',
-            'class selector': 'CSS selector using . to target elements by their class attribute, like .highlight { }. Classes can be reused.',
-            'property': 'The CSS feature being changed, like color or font-size.',
-            'value': 'The setting for a CSS property, like blue or 16px.',
-            'CSS rule': 'A complete CSS statement: selector { property: value; }',
-            'outline': 'CSS property that creates a line around an element, often used for focus indicators. Similar to border but doesn\'t take up space.',
-            'px': 'Pixels - a unit of measurement in CSS. 1px is one pixel on the screen. Used for sizes like font-size: 16px;',
-            'semicolon': 'The ; symbol that ends each CSS property declaration. Required after every CSS property value.',
-            'layout': 'How elements are arranged and positioned on a webpage, controlled by CSS.',
-            'presentation': 'The visual appearance of a webpage - colors, fonts, spacing - controlled by CSS, separate from HTML content.',
-            'readability': 'How easy text is to read, improved by good font choices, spacing, colors, and contrast.',
-            'visual hierarchy': 'Using size, color, spacing, and styling to show which content is most important and guide the user\'s eye.',
-            'design': 'The overall look and feel of a webpage, created through CSS styling choices.',
-            'maintainable': 'Code that is easy to update and modify. Separating HTML (content) from CSS (styling) makes code more maintainable.',
-            'box-sizing': 'CSS property that controls how element width and height are calculated. border-box includes padding and border in the total size.',
-            'flex': 'CSS display value that creates flexible layouts. Elements can grow, shrink, and align in a container. Used with flexbox properties.',
-            'flexbox': 'A CSS layout method using display: flex. Allows flexible arrangement of elements in rows or columns with easy alignment.',
-            'flex-direction': 'CSS property that sets the direction of flex items: row (horizontal) or column (vertical).',
-            'flex-wrap': 'CSS property that controls whether flex items wrap to a new line when they don\'t fit.',
-            'vh': 'Viewport height unit - 1vh equals 1% of the browser window height. 100vh is the full screen height.',
-            'vw': 'Viewport width unit - 1vw equals 1% of the browser window width. 100vw is the full screen width.',
-            'transition': 'CSS property that creates smooth animations when properties change, like transition: background 0.3s;',
-            'opacity': 'CSS property that controls element transparency. Values from 0 (invisible) to 1 (fully visible).',
-            'border-radius': 'CSS property that rounds the corners of elements, like border-radius: 5px; for slightly rounded corners.',
-            'line-height': 'CSS property that sets the spacing between lines of text, improving readability. Often set to 1.5 or 1.6.',
-            'font-family': 'CSS property that sets the font typeface, like font-family: Arial, sans-serif;',
-            'viewport': 'The visible area of a webpage in the browser window. The viewport meta tag controls how pages display on mobile devices.',
-            'overflow': 'CSS property that controls what happens when content is too large for its container: visible, hidden, scroll, or auto.',
-            'z-index': 'CSS property that controls the stacking order of elements. Higher values appear on top. Only works with positioned elements.',
-            'position': 'CSS property that sets how an element is positioned: static, relative, absolute, fixed, or sticky.',
-            'solid': 'A border style in CSS that creates a solid line, like border: 2px solid black;',
-            'hover': 'CSS pseudo-class :hover that styles elements when the mouse pointer is over them.',
-            'monospace': 'A font type where all characters have the same width, commonly used for code. Examples: Courier, Consolas.',
-            'sans-serif': 'A font type without decorative strokes at the ends of letters. Examples: Arial, Helvetica, Verdana. Often used for body text.',
-            'serif': 'A font type with decorative strokes at the ends of letters. Examples: Times New Roman, Georgia. Often used for printed text.',
-            
-            // Accessibility Terms
-            'screen readers': 'Software that reads webpage content aloud for users with visual impairments. They rely on semantic HTML and proper structure.',
-            'alt text': 'Text description of images for screen readers. Should describe what the image shows, not just say "image".',
-            'heading hierarchy': 'The logical order of headings (h1 → h2 → h3). Never skip levels. Screen readers use this to navigate.',
-            'keyboard navigation': 'Using only keyboard (Tab, Enter, Arrow keys) to navigate a website, essential for users who cannot use a mouse.',
-            'Tab': 'The Tab key on the keyboard, used to move focus between interactive elements on a webpage.',
-            'focus': 'The highlighted state when an element is selected via keyboard navigation. Must be visible with :focus styles.',
-            'focus styles': 'CSS styles applied with :focus pseudo-class to make keyboard-focused elements visible, like outline or background-color changes.',
-            'accessible': 'Websites that work for everyone, including people with disabilities using assistive technologies.',
-            'ARIA': 'Accessible Rich Internet Applications - attributes that help screen readers understand dynamic content.',
-            'aria-label': 'ARIA attribute that provides an accessible name for an element when the visible label isn\'t sufficient. Essential for icon buttons and custom controls.',
-            'role': 'ARIA attribute that describes what an element does, like role="button" or role="navigation". Helps screen readers understand element purpose.',
-            'aria-describedby': 'ARIA attribute that connects an element to its description by referencing the ID of the description element.',
-            'aria-expanded': 'ARIA attribute that indicates whether a collapsible element (like a dropdown or accordion) is expanded (true) or collapsed (false).',
-            'aria-hidden': 'ARIA attribute that hides decorative elements from screen readers. Set to "true" for purely visual elements that don\'t add meaning.',
-            'tabindex': 'HTML attribute that controls keyboard navigation order. tabindex="0" makes an element focusable. tabindex="-1" removes from tab order.',
-            'lang': 'HTML attribute on <html> tag that specifies the page language, like lang="en" for English. Helps screen readers pronounce text correctly.',
-            '<label>': 'HTML tag that provides a text label for form inputs. Improves accessibility and allows clicking the label to focus the input.',
-            // Plain HTML element names (without angle brackets)
-            'html': 'The root element that wraps all HTML content on a webpage.',
-            'head': 'Contains metadata about the document, like title and styles, not visible on the page.',
-            'body': 'Contains all visible content that appears on the webpage.',
-            'title': 'Sets the text shown in the browser tab or window title.',
-            'h1': 'The main heading (largest). Use only one per page for the main title.',
-            'h2': 'A section heading, smaller than h1. Use for major sections.',
-            'h3': 'A subsection heading, smaller than h2. Use for subsections.',
-            'h4': 'A smaller heading, used for sub-subsections.',
-            'h5': 'An even smaller heading level.',
-            'h6': 'The smallest heading level.',
-            'p': 'Paragraph tag for blocks of text content.',
-            'a': 'Anchor tag creates clickable links to other pages or websites.',
-            'img': 'Image tag displays pictures. Requires src (image location) and alt (description) attributes.',
-            'ul': 'Unordered list creates a bulleted list of items.',
-            'ol': 'Ordered list creates a numbered list of items.',
-            'li': 'List item tag used inside <ul> or <ol> for each list entry.',
-            'header': 'Semantic tag for the top section of a page, typically containing logo and navigation.',
-            'nav': 'Semantic tag for navigation links.',
-            'main': 'Semantic tag for the main content of the page (only one per page).',
-            'article': 'Semantic tag for standalone content like blog posts or news articles.',
-            'footer': 'Semantic tag for the bottom section, often containing copyright and links.',
-            'div': 'Generic container element that groups content together. Has no visual meaning by itself but helps organize and style content. Use semantic tags like <header> or <main> when possible.',
-            'span': 'Inline container element used to group inline content for styling. Similar to <div> but for inline elements.',
-            'strong': 'Tag that makes text bold and indicates importance. Screen readers emphasize it.',
-            'em': 'Tag that makes text italic and indicates emphasis. Screen readers stress it.',
-            'style': 'HTML tag that contains CSS code for styling the page.',
-            'label': 'HTML tag that provides a text label for form inputs. Improves accessibility and allows clicking the label to focus the input.',
-            'assistive technologies': 'Tools like screen readers, voice control, or keyboard-only navigation that help people with disabilities use websites.',
-            'visual impairments': 'Conditions that affect a person\'s ability to see, requiring assistive technologies like screen readers to access web content.',
-            'accessible web design': 'Designing websites so they work for all users, including those with disabilities, following accessibility principles and standards.'
-        };
+        // Glossary is now loaded from translations.json (translations.en.glossary)
+        // No hardcoded glossary object needed
 
-        // Copy glossary to translations.en.glossary
-        if (translations.en && (!translations.en.glossary || Object.keys(translations.en.glossary).length === 0)) {
-            translations.en.glossary = { ...glossary };
-        }
-
-        // Function to wrap terms with tooltips
+        // Function to wrap terms with tooltips (legacy function, using TextWithTooltips component instead)
         function addTooltips(text) {
             if (!text) return text;
             
+            // Get English glossary from translations
+            const englishGlossary = translations.en?.glossary || {};
+            
             // Sort terms by length (longest first) to match longer phrases first
-            const sortedTerms = Object.keys(glossary).sort((a, b) => b.length - a.length);
+            const sortedTerms = Object.keys(englishGlossary).sort((a, b) => b.length - a.length);
             
             let result = text;
             const usedIndices = new Set();
@@ -567,7 +401,7 @@
                     
                     if (!isInsideTag && !alreadyWrapped) {
                         const termText = match[0];
-                        const definition = glossary[term.toLowerCase()] || glossary[term];
+                        const definition = getTranslatedGlossary(term);
                         if (definition) {
                             const tooltipId = `tooltip-${term.replace(/[^a-z0-9]/gi, '-')}-${startIndex}`;
                             const wrapped = (
@@ -601,21 +435,24 @@
             
             const lang = window.currentLanguage || 'en';
             
+            // Get English glossary from translations
+            const englishGlossary = translations.en?.glossary || {};
+            
             // Create a case-insensitive lookup map using translated glossary
             const glossaryMap = new Map();
-            Object.keys(glossary).forEach(key => {
+            Object.keys(englishGlossary).forEach(key => {
                 const translatedDef = getTranslatedGlossary(key);
                 glossaryMap.set(key.toLowerCase(), translatedDef);
             });
             
             // Get terms to match - include both English and French terms when language is French
-            let termsToMatch = Object.keys(glossary);
+            let termsToMatch = Object.keys(englishGlossary);
             if (lang === 'fr' && translations.fr && translations.fr.glossary) {
                 // Add French terms from French glossary
                 const frenchGlossary = translations.fr.glossary;
                 const frenchTerms = Object.keys(frenchGlossary).filter(key => {
-                    // Only include French-specific terms (not English keys that are already in glossary)
-                    return !glossary.hasOwnProperty(key);
+                    // Only include French-specific terms (not English keys that are already in englishGlossary)
+                    return !englishGlossary.hasOwnProperty(key);
                 });
                 termsToMatch = [...termsToMatch, ...frenchTerms];
             }
