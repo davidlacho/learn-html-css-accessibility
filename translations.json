@@ -610,7 +610,7 @@
           "You need at least one of: aria-describedby or aria-expanded, AND a role attribute",
           "Click \"Verify Code\" to check your work"
         ],
-        "codeTemplate": "<html lang=\"en\">\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <main>\n        <p id=\"description\">This is a description</p>\n        <div aria-describedby=\"description\" role=\"region\">Content here</div>\n        <!-- Or try: <button aria-expanded=\"false\" role=\"button\">Toggle</button> -->\n    </main>\n</body>\n</html>",
+        "codeTemplate": "<html lang=\"en\">\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>City Library Events</h1>\n    </header>\n    <main>\n        <p id=\"event-note\">Note: Some events require registration. Arrive 10 minutes early for seating.</p>\n        <div aria-describedby=\"event-note\" role=\"region\">\n            <h2>Today’s events</h2>\n            <ul>\n                <li>10:00 AM — Story time (Kids Room)</li>\n                <li>1:00 PM — Resume workshop (Meeting Room A)</li>\n                <li>6:30 PM — Book club: \"Pride and Prejudice\" (Community Room)</li>\n            </ul>\n        </div>\n        <!-- Or try: <button aria-expanded=\"false\" role=\"button\">Show event details</button> -->\n    </main>\n</body>\n</html>",
         "w3schoolsLinks": [
           {
             "text": "ARIA Describedby",
@@ -1541,7 +1541,7 @@
           "Vous avez besoin d'au moins un de : aria-describedby ou aria-expanded, ET un attribut role",
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
-        "codeTemplate": "<html lang=\"fr\">\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <main>\n        <p id=\"description\">Ceci est une description</p>\n        <div aria-describedby=\"description\" role=\"region\">Contenu ici</div>\n        <!-- Ou essayez : <button aria-expanded=\"false\" role=\"button\">Basculer</button> -->\n    </main>\n</body>\n</html>",
+        "codeTemplate": "<html lang=\"fr\">\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Événements de la bibliothèque</h1>\n    </header>\n    <main>\n        <p id=\"event-note\">Note : Certains événements nécessitent une inscription. Arrivez 10 minutes en avance pour vous asseoir.</p>\n        <div aria-describedby=\"event-note\" role=\"region\">\n            <h2>Événements d’aujourd’hui</h2>\n            <ul>\n                <li>10 h 00 — Heure du conte (Espace enfants)</li>\n                <li>13 h 00 — Atelier CV (Salle de réunion A)</li>\n                <li>18 h 30 — Club de lecture : \"Orgueil et Préjugés\" (Salle communautaire)</li>\n            </ul>\n        </div>\n        <!-- Ou essayez : <button aria-expanded=\"false\" role=\"button\">Afficher les détails</button> -->\n    </main>\n</body>\n</html>",
         "w3schoolsLinks": [
           {
             "text": "ARIA Describedby",
