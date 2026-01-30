@@ -1407,6 +1407,7 @@
                 });
                 
                 return (
+                    <>
                     <div className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
                         <div className="certificate-header">
                             <div className="certificate-language-selector">
@@ -1507,11 +1508,13 @@
                         </div>
                     </div>
                     {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
+                    </>
                 );
             }
 
             if (!hasStarted || !studentName) {
                 return (
+                    <>
                     <div className="app-container">
                         <div className="lesson-panel">
                             <div className="header">
@@ -1574,10 +1577,12 @@
                         </div>
                     </div>
                     {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
+                    </>
                 );
             }
 
             return (
+                <>
                 <div className="app-container">
                     <div className="lesson-panel">
                         <div className="header">
@@ -1880,6 +1885,7 @@
                     </div>
                 </div>
                 {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
+                </>
             );
         }
 
