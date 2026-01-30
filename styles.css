@@ -828,16 +828,6 @@ body {
     box-shadow: 0 1px 0 #fff;
 }
 
-.preview-tab-favicon {
-    font-size: 12px;
-    color: #666;
-    flex-shrink: 0;
-}
-
-.preview-tab-active .preview-tab-favicon {
-    color: #5a9cf6;
-}
-
 /* Toolbar: nav buttons + URL bar */
 .preview-browser-toolbar {
     display: flex;

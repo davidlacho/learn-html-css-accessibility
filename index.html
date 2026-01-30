@@ -8,6 +8,7 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
 </head>
 <body>
     <div id="root"></div>
@@ -760,6 +761,7 @@
             const [studentName, setStudentName] = useState('');
             const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
             const [code, setCode] = useState('');
+            const [codeByLesson, setCodeByLesson] = useState(() => ({}));
             const [feedback, setFeedback] = useState(null);
             const [hasStarted, setHasStarted] = useState(false);
             const [hintExpanded, setHintExpanded] = useState(false);
@@ -852,6 +854,15 @@
                 }
             }, [language, currentLessonIndex, hasStarted, translationsLoaded]);
 
+            // When switching lessons, load code from codeByLesson or template
+            useEffect(() => {
+                if (!hasStarted || currentLessonIndex >= lessons.length) return;
+                const lessonRaw = lessons[currentLessonIndex];
+                const lesson = getTranslatedLesson(lessonRaw, language);
+                const saved = codeByLesson[lessonRaw.id];
+                setCode(saved ?? lesson.codeTemplate ?? '');
+            }, [currentLessonIndex, hasStarted, language, codeByLesson]);
+
             // Set up forceUpdate function for translations loading
             useEffect(() => {
                 window.forceUpdate = () => setRefreshKey(prev => prev + 1);
@@ -891,6 +902,9 @@
                         } else {
                             setCurrentLessonIndex(state.lessonIndex || 0);
                             setCode(state.code || '');
+                            if (state.code != null && state.lessonIndex != null && lessons[state.lessonIndex]) {
+                                setCodeByLesson(prev => ({ ...prev, [lessons[state.lessonIndex].id]: state.code }));
+                            }
                         }
                         // Restore completed lessons from array to Set
                         if (state.completedLessons && Array.isArray(state.completedLessons)) {
@@ -1021,10 +1035,9 @@
 
             const handleNext = () => {
                 if (currentLessonIndex < lessons.length - 1) {
+                    const currentLessonRaw = lessons[currentLessonIndex];
+                    setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
                     setCurrentLessonIndex(currentLessonIndex + 1);
-                    const nextLessonRaw = lessons[currentLessonIndex + 1];
-                    const nextLesson = getTranslatedLesson(nextLessonRaw, language);
-                    setCode(nextLesson.codeTemplate || '');
                     setFeedback(null);
                     setHintExpanded(false); // Reset hint when moving to next lesson
                 }
@@ -1032,13 +1045,9 @@
 
             const handleBack = () => {
                 if (currentLessonIndex > 0) {
-                    // Current code is already saved via useEffect
-                    const prevLessonIndex = currentLessonIndex - 1;
-                    setCurrentLessonIndex(prevLessonIndex);
-                    const prevLessonRaw = lessons[prevLessonIndex];
-                    const prevLesson = getTranslatedLesson(prevLessonRaw, language);
-                    // Load template for previous lesson (code will be saved as user types)
-                    setCode(prevLesson.codeTemplate || '');
+                    const currentLessonRaw = lessons[currentLessonIndex];
+                    setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
+                    setCurrentLessonIndex(currentLessonIndex - 1);
                     setFeedback(null);
                     setHintExpanded(false); // Reset hint when moving to previous lesson
                 }
@@ -1046,11 +1055,9 @@
 
             const handleSkip = () => {
                 if (currentLessonIndex < lessons.length - 1) {
-                    // Save current code before skipping
+                    const currentLessonRaw = lessons[currentLessonIndex];
+                    setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
                     setCurrentLessonIndex(currentLessonIndex + 1);
-                    const nextLessonRaw = lessons[currentLessonIndex + 1];
-                    const nextLesson = getTranslatedLesson(nextLessonRaw, language);
-                    setCode(nextLesson.codeTemplate || '');
                     setFeedback(null);
                     setHintExpanded(false); // Reset hint when skipping
                 }
@@ -1076,13 +1083,29 @@
                 
                 // Use first incomplete lesson, or first lesson if all are complete
                 const targetIndex = firstIncomplete ? firstIncomplete.index : sectionLessons[0].index;
-                
+                const currentLessonRaw = lessons[currentLessonIndex];
+                setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
                 setCurrentLessonIndex(targetIndex);
-                const targetLessonRaw = lessons[targetIndex];
-                const targetLesson = getTranslatedLesson(targetLessonRaw, language);
-                setCode(targetLesson.codeTemplate || '');
                 setFeedback(null);
                 setHintExpanded(false);
+            };
+
+            // Wrap code in a full HTML document if it's a fragment (no DOCTYPE/html)
+            const wrapInDocumentIfNeeded = (rawCode, lessonId) => {
+                const trimmed = rawCode.trim();
+                if (/^\s*<!DOCTYPE/i.test(trimmed) || /^\s*<html[\s>]/i.test(trimmed)) return rawCode;
+                return `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${lessonId}</title>\n</head>\n<body>\n${rawCode}\n</body>\n</html>`;
+            };
+
+            const downloadCurrentHtml = () => {
+                const html = wrapInDocumentIfNeeded(code, currentLessonRaw.id);
+                const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${currentLessonRaw.id}.html`;
+                a.click();
+                URL.revokeObjectURL(url);
             };
 
             // Helper function to calculate indentation based on tag structure
@@ -1813,6 +1836,9 @@
                                             {t('ui.back')}
                                         </button>
                                     )}
+                                    <button onClick={downloadCurrentHtml} type="button" className="btn btn-secondary" aria-label={t('ui.downloadHtml')}>
+                                        {t('ui.downloadHtml')}
+                                    </button>
                                     <button onClick={handleVerify} className="btn btn-primary" aria-label={t('ui.verifyCode')}>
                                         {t('ui.verifyCode')}
                                     </button>
@@ -1888,7 +1914,6 @@
                                     </div>
                                     <div className="preview-browser-tabs" aria-hidden="true">
                                         <span className="preview-tab preview-tab-active">
-                                            <span className="preview-tab-favicon" aria-hidden="true">◇</span>
                                             {t('ui.preview')}
                                         </span>
                                     </div>
