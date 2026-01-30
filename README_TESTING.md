@@ -9,18 +9,16 @@ This directory contains comprehensive Selenium tests for the HTML/CSS Learning W
 pip install -r test_requirements.txt
 ```
 
-2. Start the local web server:
+2. Run the tests (no need to start the server manually):
 ```bash
-python3 -m http.server 3000
-```
+# Run all tests — the web server is started automatically (conftest.py)
+pytest -v
 
-3. Run the tests:
-```bash
-# Run all tests
-pytest test_website.py test_modules.py -v
+# Run core tests only (faster)
+pytest test_website.py test_translations.py -v
 
 # Run with HTML report
-pytest test_website.py test_modules.py -v --html=report.html --self-contained-html
+pytest -v --html=report.html --self-contained-html
 
 # Run specific test file
 pytest test_website.py -v
@@ -28,6 +26,8 @@ pytest test_website.py -v
 # Run specific test
 pytest test_website.py::TestWebsite::test_welcome_screen_loads -v
 ```
+
+The test suite starts the local server (`python3 server.py`) on port 8000 automatically when needed. To use an already-running server, set `BASE_URL` (e.g. `BASE_URL=http://localhost:8000 pytest -v`).
 
 ## Test Coverage
 
@@ -71,16 +71,15 @@ Tests use:
 
 ## Running Tests in CI/CD
 
-For headless operation (CI/CD), tests automatically run in headless mode. Make sure:
+For headless operation (CI/CD), tests automatically run in headless mode. The GitHub workflow starts the server before pytest. Make sure:
 1. Chrome/Chromium is installed
-2. Port 3000 is available
-3. The website is served on localhost:3000
+2. Port 8000 is available (or set `BASE_URL` to your server URL)
 
 ## Troubleshooting
 
 If tests fail:
-1. Ensure the web server is running on port 3000
-2. Check that Chrome/Chromium is installed
+1. If you see "Web server did not start in time", start the server manually: `python3 server.py` (port 8000), then run pytest again. Or set `BASE_URL=http://localhost:8000` if the server is already running.
+2. Check that Chrome/Chromium is installed (required for Selenium tests).
 3. Verify all dependencies are installed: `pip install -r test_requirements.txt`
 4. Check browser console for JavaScript errors
 5. Run tests with `-v` flag for verbose output
