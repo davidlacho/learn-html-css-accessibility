@@ -776,6 +776,7 @@
             const textareaRef = useRef(null);
             const nextButtonRef = useRef(null);
             const tryAgainButtonRef = useRef(null);
+            const prevLessonIndexRef = useRef(undefined);
 
             // Keep fake browser address bar in sync with current URL (hash changes, etc.)
             useEffect(() => {
@@ -854,9 +855,13 @@
                 }
             }, [language, currentLessonIndex, hasStarted, translationsLoaded]);
 
-            // When switching lessons, load code from codeByLesson or template
+            // When switching lessons, load code from codeByLesson or template (not on initial mount, to avoid overwriting URL-loaded code)
             useEffect(() => {
                 if (!hasStarted || currentLessonIndex >= lessons.length) return;
+                const prev = prevLessonIndexRef.current;
+                prevLessonIndexRef.current = currentLessonIndex;
+                if (prev === undefined) return; // initial mount - code was set by load-from-URL or template effect
+                if (prev === currentLessonIndex) return; // same lesson, e.g. codeByLesson updated
                 const lessonRaw = lessons[currentLessonIndex];
                 const lesson = getTranslatedLesson(lessonRaw, language);
                 const saved = codeByLesson[lessonRaw.id];
@@ -1452,6 +1457,31 @@
                     month: 'long', 
                     day: 'numeric' 
                 });
+
+                const wrapInDoc = (rawCode, lessonId) => {
+                    const trimmed = (rawCode || '').trim();
+                    if (/^\s*<!DOCTYPE/i.test(trimmed) || /^\s*<html[\s>]/i.test(trimmed)) return rawCode || '';
+                    return `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${lessonId}</title>\n</head>\n<body>\n${trimmed || ''}\n</body>\n</html>`;
+                };
+
+                const downloadAllFiles = () => {
+                    if (typeof window.JSZip === 'undefined') return;
+                    const zip = new window.JSZip();
+                    lessons.forEach((lessonRaw) => {
+                        const lesson = getTranslatedLesson(lessonRaw, language);
+                        const raw = codeByLesson[lessonRaw.id] ?? lesson.codeTemplate ?? '';
+                        const html = wrapInDoc(raw, lessonRaw.id);
+                        zip.file(`${lessonRaw.id}.html`, html);
+                    });
+                    zip.generateAsync({ type: 'blob' }).then((blob) => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `html-css-accessibility-lessons-${studentName.replace(/[^a-z0-9]/gi, '-')}.zip`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    });
+                };
                 
                 return (
                     <>
@@ -1548,6 +1578,15 @@
                                     >
                                         📧 {t('ui.emailCertificate')}
                                     </a>
+                                    <button
+                                        type="button"
+                                        onClick={downloadAllFiles}
+                                        className="btn btn-primary"
+                                        style={{ marginLeft: '12px', padding: '12px 24px', fontSize: '16px' }}
+                                        aria-label={t('ui.downloadAllFiles')}
+                                    >
+                                        📥 {t('ui.downloadAllFiles')}
+                                    </button>
                                 </div>
                                 <p style={{ fontSize: '14px', color: '#595959', marginTop: '15px', fontStyle: 'italic' }}>
                                     {t('ui.certificateShareDescription')}
