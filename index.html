@@ -1880,29 +1880,46 @@
                     </div>
 
                     <div className="preview-panel">
-                        <div className="preview-browser-chrome">
-                            <div className="preview-browser-dots" aria-hidden="true">
-                                <span className="preview-dot" />
-                                <span className="preview-dot" />
-                                <span className="preview-dot" />
+                        <div className="preview-browser-window">
+                            <div className="preview-browser-chrome">
+                                <div className="preview-browser-tab-row">
+                                    <div className="preview-browser-dots" aria-hidden="true">
+                                        <span className="preview-dot" />
+                                        <span className="preview-dot" />
+                                        <span className="preview-dot" />
+                                    </div>
+                                    <div className="preview-browser-tabs" aria-hidden="true">
+                                        <span className="preview-tab preview-tab-active">
+                                            <span className="preview-tab-favicon" aria-hidden="true">◇</span>
+                                            {t('ui.preview')}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="preview-browser-toolbar">
+                                    <div className="preview-nav-buttons" aria-hidden="true">
+                                        <span className="preview-nav-btn preview-nav-back">‹</span>
+                                        <span className="preview-nav-btn preview-nav-forward">›</span>
+                                        <span className="preview-nav-btn preview-nav-refresh">↻</span>
+                                    </div>
+                                    <div className="preview-browser-bar">
+                                        <span className="preview-bar-icon" aria-hidden="true">🔒</span>
+                                        <input
+                                            type="text"
+                                            className="preview-bar-url"
+                                            readOnly
+                                            value={currentPageUrl}
+                                            onFocus={(e) => e.target.select()}
+                                            onClick={(e) => e.target.select()}
+                                            aria-label={t('ui.pageUrlAria')}
+                                        />
+                                    </div>
+                                    {currentLessonRaw.id === 'accessibility-4' && (
+                                        <span className="preview-browser-hint">
+                                            💡 {t('ui.clickToTestKeyboard')}
+                                        </span>
+                                    )}
+                                </div>
                             </div>
-                            <div className="preview-browser-bar">
-                                <span className="preview-bar-icon" aria-hidden="true">🔒</span>
-                                <input
-                                    type="text"
-                                    className="preview-bar-url"
-                                    readOnly
-                                    value={currentPageUrl}
-                                    onFocus={(e) => e.target.select()}
-                                    onClick={(e) => e.target.select()}
-                                    aria-label={t('ui.pageUrlAria')}
-                                />
-                            </div>
-                            {currentLessonRaw.id === 'accessibility-4' && (
-                                <span className="preview-browser-hint">
-                                    💡 {t('ui.clickToTestKeyboard')}
-                                </span>
-                            )}
                         </div>
                         <iframe
                             ref={previewFrameRef}
