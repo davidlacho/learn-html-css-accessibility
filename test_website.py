@@ -151,23 +151,18 @@ class TestWebsite:
         assert lesson_title.is_displayed()
     
     def test_tooltips_in_lesson(self, driver, base_url):
-        """Test tooltips work in lesson content"""
+        """Test tooltips work in lesson content (native browser tooltips via title)"""
         wait = WebDriverWait(driver, 15)
         self.start_lesson_session(driver, wait, base_url=base_url)
         
-        # Find a tooltip button in the lesson content
         try:
-            tooltip_buttons = driver.find_elements(By.CSS_SELECTOR, ".tooltip-wrapper, button[role='button'][aria-describedby]")
-            if tooltip_buttons:
-                # Click first tooltip button
-                tooltip_buttons[0].click()
-                time.sleep(0.5)
-                
-                # Check if tooltip is visible
-                tooltip = driver.find_element(By.CSS_SELECTOR, ".tooltip")
-                assert tooltip.is_displayed() or tooltip.get_attribute("aria-hidden") != "true"
+            tooltip_wrappers = driver.find_elements(By.CSS_SELECTOR, ".tooltip-wrapper")
+            if tooltip_wrappers:
+                first = tooltip_wrappers[0]
+                title = first.get_attribute("title")
+                assert title and len(title.strip()) > 0, "Tooltip wrapper should have a non-empty title for native browser tooltip"
         except (NoSuchElementException, IndexError):
-            pytest.skip("No tooltip buttons found in this lesson")
+            pytest.skip("No tooltip wrappers found in this lesson")
     
     def test_code_editor_functionality(self, driver, base_url):
         """Test code editor accepts input"""

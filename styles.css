@@ -553,52 +553,6 @@ body {
     outline-offset: 2px;
 }
 
-/* Use visibility so contrast tools don't report transparent white on #2c3e50 when hidden */
-.tooltip {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 8px;
-    padding: 10px 15px;
-    background: #2c3e50;
-    color: white;
-    border-radius: 6px;
-    font-size: 14px;
-    line-height: 1.5;
-    white-space: normal;
-    width: 250px;
-    max-width: 90vw;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s, visibility 0.2s;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: #2c3e50;
-}
-
-.tooltip-wrapper:hover .tooltip,
-.tooltip-wrapper:focus .tooltip {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.tooltip-wrapper:focus {
-    outline: 2px solid #25639a;
-    outline-offset: 2px;
-}
-
 .code-input {
     margin: 20px 0;
 }

@@ -405,35 +405,16 @@ class TestComprehensiveCoverage:
                 pass  # Error handling is working (no success)
     
     def test_tooltip_functionality_detailed(self, driver, base_url):
-        """Test tooltip functionality in detail"""
+        """Test tooltip functionality (native browser tooltips via title)"""
         wait = self.start_lesson(driver, base_url)
         
-        # Find tooltip buttons
-        tooltip_buttons = driver.find_elements(
-            By.CSS_SELECTOR, 
-            ".tooltip-wrapper button, button[aria-describedby], button[role='button'][aria-describedby]"
-        )
-        
-        if tooltip_buttons:
-            # Click first tooltip
-            tooltip_buttons[0].click()
-            time.sleep(0.5)
-            
-            # Check if tooltip is visible
-            tooltips = driver.find_elements(By.CSS_SELECTOR, ".tooltip, [role='tooltip']")
-            if tooltips:
-                visible_tooltip = [t for t in tooltips if t.is_displayed()]
-                if visible_tooltip:
-                    assert len(visible_tooltip[0].text) > 0, "Tooltip should have text"
-            
-            # Check aria attributes
-            button = tooltip_buttons[0]
-            aria_describedby = button.get_attribute("aria-describedby")
-            if aria_describedby:
-                tooltip_element = driver.find_elements(By.ID, aria_describedby)
-                assert len(tooltip_element) > 0, "Tooltip element should exist"
+        tooltip_wrappers = driver.find_elements(By.CSS_SELECTOR, ".tooltip-wrapper")
+        if tooltip_wrappers:
+            first = tooltip_wrappers[0]
+            title = first.get_attribute("title")
+            assert title and len(title.strip()) > 0, "Tooltip wrapper should have a non-empty title for native browser tooltip"
         else:
-            pytest.skip("No tooltip buttons found")
+            pytest.skip("No tooltip wrappers found")
     
     def test_url_state_encoding_decoding(self, driver, base_url):
         """Test URL state encoding and decoding"""

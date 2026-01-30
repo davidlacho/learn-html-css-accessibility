@@ -405,11 +405,8 @@
                         if (definition) {
                             const tooltipId = `tooltip-${term.replace(/[^a-z0-9]/gi, '-')}-${startIndex}`;
                             const wrapped = (
-                                <span key={tooltipId} className="tooltip-wrapper" tabIndex="0" role="button" aria-describedby={tooltipId}>
+                                <span key={tooltipId} className="tooltip-wrapper" title={definition} id={tooltipId}>
                                     {termText}
-                                    <span id={tooltipId} className="tooltip" role="tooltip">
-                                        {definition}
-                                    </span>
                                 </span>
                             );
                             
@@ -521,11 +518,8 @@
                                 
                                 const tooltipId = `tooltip-${keyCounter}`;
                                 parts.push(
-                                    <span key={tooltipId} className="tooltip-wrapper" tabIndex="0" role="button" aria-label={t('ui.definitionOf', { term: matchedTerm })} aria-describedby={tooltipId}>
+                                    <span key={tooltipId} className="tooltip-wrapper" title={definition} id={tooltipId}>
                                         {matchedTerm}
-                                        <span id={tooltipId} className="tooltip" role="tooltip">
-                                            {definition}
-                                        </span>
                                     </span>
                                 );
                                 keyCounter++;
