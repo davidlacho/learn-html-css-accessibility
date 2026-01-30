@@ -767,12 +767,25 @@
             const [language, setLanguage] = useState('en');
             const [refreshKey, setRefreshKey] = useState(0);
             const [glossaryOpen, setGlossaryOpen] = useState(false);
+            const [currentPageUrl, setCurrentPageUrl] = useState(() => typeof window !== 'undefined' ? window.location.href : '');
             const glossaryTriggerRef = useRef(null);
             const previewFrameRef = useRef(null);
             const codeRef = useRef('');
             const textareaRef = useRef(null);
             const nextButtonRef = useRef(null);
             const tryAgainButtonRef = useRef(null);
+
+            // Keep fake browser address bar in sync with current URL (hash changes, etc.)
+            useEffect(() => {
+                const updateUrl = () => setCurrentPageUrl(window.location.href);
+                updateUrl();
+                window.addEventListener('hashchange', updateUrl);
+                window.addEventListener('popstate', updateUrl);
+                return () => {
+                    window.removeEventListener('hashchange', updateUrl);
+                    window.removeEventListener('popstate', updateUrl);
+                };
+            }, []);
 
             // Update global language and HTML lang attribute
             useEffect(() => {
@@ -902,6 +915,8 @@
                     const hash = encodeState(state);
                     // Use replaceState to avoid adding to browser history on every keystroke
                     window.history.replaceState(null, '', '#' + hash);
+                    // replaceState does not fire hashchange, so update fake browser URL bar
+                    setCurrentPageUrl(window.location.href);
                 }
             }, [studentName, currentLessonIndex, code, completedLessons, hasStarted, language]);
 
@@ -1865,10 +1880,26 @@
                     </div>
 
                     <div className="preview-panel">
-                        <div className="preview-header">
-                            {t('ui.preview')}
+                        <div className="preview-browser-chrome">
+                            <div className="preview-browser-dots" aria-hidden="true">
+                                <span className="preview-dot" />
+                                <span className="preview-dot" />
+                                <span className="preview-dot" />
+                            </div>
+                            <div className="preview-browser-bar">
+                                <span className="preview-bar-icon" aria-hidden="true">🔒</span>
+                                <input
+                                    type="text"
+                                    className="preview-bar-url"
+                                    readOnly
+                                    value={currentPageUrl}
+                                    onFocus={(e) => e.target.select()}
+                                    onClick={(e) => e.target.select()}
+                                    aria-label={t('ui.pageUrlAria')}
+                                />
+                            </div>
                             {currentLessonRaw.id === 'accessibility-4' && (
-                                <span style={{ fontSize: '14px', fontWeight: 'normal', marginLeft: '15px', opacity: 0.9 }}>
+                                <span className="preview-browser-hint">
                                     💡 {t('ui.clickToTestKeyboard')}
                                 </span>
                             )}
