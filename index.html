@@ -550,6 +550,141 @@
             return <>{parts}</>;
         }
 
+        // Glossary popup: searchable list of all terms with definitions (accessible dialog)
+        function GlossaryPopup({ open, onClose, language, triggerRef }) {
+            const [searchQuery, setSearchQuery] = useState('');
+            const dialogRef = useRef(null);
+            const searchInputRef = useRef(null);
+            const closeButtonRef = useRef(null);
+
+            // Build glossary entries for current language (term + definition)
+            const lang = language || window.currentLanguage || 'en';
+            const allTerms = React.useMemo(() => {
+                const glossary = translations[lang]?.glossary || translations.en?.glossary || {};
+                const enGlossary = translations.en?.glossary || {};
+                const keys = new Set([...Object.keys(enGlossary), ...Object.keys(glossary)]);
+                return Array.from(keys)
+                    .map(term => ({ term, definition: getTranslatedGlossary(term) || glossary[term] || enGlossary[term] }))
+                    .filter(e => e.definition)
+                    .sort((a, b) => a.term.localeCompare(b.term, undefined, { sensitivity: 'base' }));
+            }, [lang]);
+
+            const filteredTerms = React.useMemo(() => {
+                if (!searchQuery.trim()) return allTerms;
+                const q = searchQuery.toLowerCase().trim();
+                return allTerms.filter(
+                    ({ term, definition }) =>
+                        term.toLowerCase().includes(q) ||
+                        (typeof definition === 'string' && definition.toLowerCase().includes(q))
+                );
+            }, [allTerms, searchQuery]);
+
+            // When opened: focus search input; when closed: return focus to trigger button
+            useEffect(() => {
+                if (open) {
+                    setSearchQuery('');
+                    const t = setTimeout(() => searchInputRef.current?.focus(), 50);
+                    return () => clearTimeout(t);
+                } else if (triggerRef?.current) {
+                    triggerRef.current.focus();
+                }
+            }, [open]);
+
+            // Escape key closes dialog
+            useEffect(() => {
+                if (!open) return;
+                const handleKeyDown = (e) => {
+                    if (e.key === 'Escape') {
+                        e.preventDefault();
+                        onClose();
+                    }
+                    if (e.key === 'Tab' && dialogRef.current) {
+                        const focusable = dialogRef.current.querySelectorAll(
+                            'button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+                        );
+                        const list = Array.from(focusable).filter(el => el.offsetParent !== null);
+                        const idx = list.indexOf(document.activeElement);
+                        if (idx === -1) return;
+                        if (e.shiftKey) {
+                            if (idx <= 0) {
+                                e.preventDefault();
+                                list[list.length - 1].focus();
+                            }
+                        } else {
+                            if (idx >= list.length - 1) {
+                                e.preventDefault();
+                                list[0].focus();
+                            }
+                        }
+                    }
+                };
+                document.addEventListener('keydown', handleKeyDown);
+                return () => document.removeEventListener('keydown', handleKeyDown);
+            }, [open, onClose]);
+
+            if (!open) return null;
+
+            return (
+                <div
+                    className="glossary-overlay"
+                    onClick={(e) => e.target === e.currentTarget && onClose()}
+                    role="presentation"
+                >
+                    <div
+                        ref={dialogRef}
+                        className="glossary-dialog"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="glossary-title"
+                        aria-describedby="glossary-desc"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="glossary-dialog-header">
+                            <h2 id="glossary-title" className="glossary-title">{t('ui.glossaryTitle')}</h2>
+                            <button
+                                ref={closeButtonRef}
+                                type="button"
+                                className="glossary-close-btn"
+                                onClick={onClose}
+                                aria-label={t('ui.glossaryClose')}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <p id="glossary-desc" className="sr-only">
+                            {t('ui.glossarySearchPlaceholder')}
+                        </p>
+                        <label htmlFor="glossary-search-input" className="sr-only">{t('ui.glossarySearchPlaceholder')}</label>
+                        <input
+                            ref={searchInputRef}
+                            id="glossary-search-input"
+                            type="search"
+                            className="glossary-search"
+                            placeholder={t('ui.glossarySearchPlaceholder')}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            aria-label={t('ui.glossarySearchPlaceholder')}
+                            autoComplete="off"
+                        />
+                        <div className="glossary-list-wrapper" role="region" aria-label={t('ui.glossaryTitle')}>
+                            {filteredTerms.length === 0 ? (
+                                <p className="glossary-no-results">{t('ui.glossaryNoResults')}</p>
+                            ) : (
+                                <dl className="glossary-list">
+                                    {filteredTerms.map(({ term, definition }) => (
+                                        <React.Fragment key={term}>
+                                            <dt className="glossary-term">{term}</dt>
+                                            <dd className="glossary-def">{definition}</dd>
+                                        </React.Fragment>
+                                    ))}
+                                </dl>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
         // Compressed hash encoding/decoding with shorter property names
         function encodeState(state) {
             try {
@@ -635,6 +770,8 @@
             const [completedLessons, setCompletedLessons] = useState(new Set());
             const [language, setLanguage] = useState('en');
             const [refreshKey, setRefreshKey] = useState(0);
+            const [glossaryOpen, setGlossaryOpen] = useState(false);
+            const glossaryTriggerRef = useRef(null);
             const previewFrameRef = useRef(null);
             const codeRef = useRef('');
             const textareaRef = useRef(null);
@@ -1273,6 +1410,16 @@
                     <div className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
                         <div className="certificate-header">
                             <div className="certificate-language-selector">
+                                <button
+                                    ref={glossaryTriggerRef}
+                                    type="button"
+                                    className="glossary-btn glossary-btn-certificate"
+                                    onClick={() => setGlossaryOpen(true)}
+                                    aria-label={t('ui.glossaryButton')}
+                                    aria-haspopup="dialog"
+                                >
+                                    📖 {t('ui.glossaryButton')}
+                                </button>
                                 <label htmlFor="certificate-language-select" className="sr-only">{t('ui.selectLanguage')}</label>
                                 <select 
                                     id="certificate-language-select"
@@ -1359,6 +1506,7 @@
                             </div>
                         </div>
                     </div>
+                    {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
                 );
             }
 
@@ -1372,6 +1520,16 @@
                                     <p>{t('ui.subtitle')}</p>
                                 </div>
                                 <div className="language-selector">
+                                    <button
+                                        ref={glossaryTriggerRef}
+                                        type="button"
+                                        className="glossary-btn"
+                                        onClick={() => setGlossaryOpen(true)}
+                                        aria-label={t('ui.glossaryButton')}
+                                        aria-haspopup="dialog"
+                                    >
+                                        📖 {t('ui.glossaryButton')}
+                                    </button>
                                     <label htmlFor="language-select" className="sr-only">{t('ui.selectLanguage')}</label>
                                     <select 
                                         id="language-select"
@@ -1415,6 +1573,7 @@
                             </div>
                         </div>
                     </div>
+                    {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
                 );
             }
 
@@ -1427,6 +1586,16 @@
                                 <p>{t('ui.welcomeUser', { name: studentName, current: currentLessonIndex + 1, total: lessons.length })}</p>
                             </div>
                             <div className="language-selector">
+                                <button
+                                    ref={glossaryTriggerRef}
+                                    type="button"
+                                    className="glossary-btn"
+                                    onClick={() => setGlossaryOpen(true)}
+                                    aria-label={t('ui.glossaryButton')}
+                                    aria-haspopup="dialog"
+                                >
+                                    📖 {t('ui.glossaryButton')}
+                                </button>
                                 <label htmlFor="language-select-main" className="sr-only">{t('ui.selectLanguage')}</label>
                                 <select 
                                     id="language-select-main"
@@ -1710,6 +1879,7 @@
                         />
                     </div>
                 </div>
+                {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
             );
         }
 
